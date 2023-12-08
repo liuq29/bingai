@@ -1,28 +1,125 @@
-[2023-12-08 11:14:02.183]-[]-[main]-[INFO]-[AutoConfigurationReportLoggingInitializer-logAutoConfigurationReport]-[oapSchedule]
-
-Error starting ApplicationContext. To display the auto-configuration report re-run your application with 'debug' enabled.
-[2023-12-08 11:14:02.186]-[]-[main]-[ERROR]-[LoggingFailureAnalysisReporter-report]-[oapSchedule]
-
-***************************
-APPLICATION FAILED TO START
-***************************
-
-Description:
-
-An attempt was made to call the method org.apache.coyote.AbstractProtocol.setBacklog(I)V but it does not exist. Its class, org.apache.coyote.AbstractProtocol, is available from the following locations:
-
-    jar:file:/D:/tools/apache-maven-3.3.9/repository/org/apache/tomcat/embed/tomcat-embed-core/9.0.21/tomcat-embed-core-9.0.21.jar!/org/apache/coyote/AbstractProtocol.class
-
-It was loaded from the following location:
-
-    file:/D:/tools/apache-maven-3.3.9/repository/org/apache/tomcat/embed/tomcat-embed-core/9.0.21/tomcat-embed-core-9.0.21.jar
-
-
-Action:
-
-Correct the classpath of your application so that it contains a single, compatible version of org.apache.coyote.AbstractProtocol
-
-Unable to start embedded container; nested exception is java.lang.NoSuchMethodError: org.apache.coyote.AbstractProtocol.setBacklog(I)V
-Disconnected from the target VM, address: '127.0.0.1:59584', transport: 'socket'
+[2023-12-08 15:28:25.862]-[]-[main]-[ERROR]-[SpringApplication-reportFailure]-[oapSchedule]Application startup failed
+org.springframework.context.ApplicationContextException: Unable to start embedded container; nested exception is org.springframework.boot.context.embedded.EmbeddedServletContainerException: Unable to start embedded Tomcat
+	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.onRefresh(EmbeddedWebApplicationContext.java:139) ~[spring-boot-1.5.21.RELEASE.jar:1.5.21.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:536) ~[spring-context-4.3.24.RELEASE.jar:4.3.24.RELEASE]
+	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.refresh(EmbeddedWebApplicationContext.java:124) ~[spring-boot-1.5.21.RELEASE.jar:1.5.21.RELEASE]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:693) [spring-boot-1.5.21.RELEASE.jar:1.5.21.RELEASE]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:360) [spring-boot-1.5.21.RELEASE.jar:1.5.21.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:303) [spring-boot-1.5.21.RELEASE.jar:1.5.21.RELEASE]
+	at cn.com.aia.oap.xxl.job.admin.XxlJobAdminApplication.main(XxlJobAdminApplication.java:19) [classes/:?]
+Caused by: org.springframework.boot.context.embedded.EmbeddedServletContainerException: Unable to start embedded Tomcat
+	at org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer.initialize(TomcatEmbeddedServletContainer.java:138) ~[spring-boot-1.5.21.RELEASE.jar:1.5.21.RELEASE]
+	at org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer.<init>(TomcatEmbeddedServletContainer.java:87) ~[spring-boot-1.5.21.RELEASE.jar:1.5.21.RELEASE]
+	at org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory.getTomcatEmbeddedServletContainer(TomcatEmbeddedServletContainerFactory.java:560) ~[spring-boot-1.5.21.RELEASE.jar:1.5.21.RELEASE]
+	at org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory.getEmbeddedServletContainer(TomcatEmbeddedServletContainerFactory.java:179) ~[spring-boot-1.5.21.RELEASE.jar:1.5.21.RELEASE]
+	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.createEmbeddedServletContainer(EmbeddedWebApplicationContext.java:166) ~[spring-boot-1.5.21.RELEASE.jar:1.5.21.RELEASE]
+	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.onRefresh(EmbeddedWebApplicationContext.java:136) ~[spring-boot-1.5.21.RELEASE.jar:1.5.21.RELEASE]
+	... 6 more
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'httpPutFormContentFilter' defined in class path resource [org/springframework/boot/autoconfigure/web/WebMvcAutoConfiguration.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.springframework.boot.web.filter.OrderedHttpPutFormContentFilter]: Factory method 'httpPutFormContentFilter' threw exception; nested exception is java.lang.NoClassDefFoundError: Could not initialize class com.fasterxml.jackson.databind.ObjectMapper
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:599) ~[spring-beans-4.3.24.RELEASE.jar:4.3.24.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1177) ~[spring-beans-4.3.24.RELEASE.jar:4.3.24.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1072) ~[spring-beans-4.3.24.RELEASE.jar:4.3.24.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:511) ~[spring-beans-4.3.24.RELEASE.jar:4.3.24.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:481) ~[spring-beans-4.3.24.RELEASE.jar:4.3.24.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:312) ~[spring-beans-4.3.24.RELEASE.jar:4.3.24.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230) ~[spring-beans-4.3.24.RELEASE.jar:4.3.24.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:308) ~[spring-beans-4.3.24.RELEASE.jar:4.3.24.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202) ~[spring-beans-4.3.24.RELEASE.jar:4.3.24.RELEASE]
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.getOrderedBeansOfType(ServletContextInitializerBeans.java:234) ~[spring-boot-1.5.21.RELEASE.jar:1.5.21.RELEASE]
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.addAsRegistrationBean(ServletContextInitializerBeans.java:182) ~[spring-boot-1.5.21.RELEASE.jar:1.5.21.RELEASE]
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.addAsRegistrationBean(ServletContextInitializerBeans.java:177) ~[spring-boot-1.5.21.RELEASE.jar:1.5.21.RELEASE]
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.addAdaptableBeans(ServletContextInitializerBeans.java:159) ~[spring-boot-1.5.21.RELEASE.jar:1.5.21.RELEASE]
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.<init>(ServletContextInitializerBeans.java:80) ~[spring-boot-1.5.21.RELEASE.jar:1.5.21.RELEASE]
+	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.getServletContextInitializerBeans(EmbeddedWebApplicationContext.java:252) ~[spring-boot-1.5.21.RELEASE.jar:1.5.21.RELEASE]
+	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.selfInitialize(EmbeddedWebApplicationContext.java:225) ~[spring-boot-1.5.21.RELEASE.jar:1.5.21.RELEASE]
+	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.access$000(EmbeddedWebApplicationContext.java:90) ~[spring-boot-1.5.21.RELEASE.jar:1.5.21.RELEASE]
+	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext$1.onStartup(EmbeddedWebApplicationContext.java:215) ~[spring-boot-1.5.21.RELEASE.jar:1.5.21.RELEASE]
+	at org.springframework.boot.context.embedded.tomcat.TomcatStarter.onStartup(TomcatStarter.java:55) ~[spring-boot-1.5.21.RELEASE.jar:1.5.21.RELEASE]
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5225) ~[tomcat-embed-core-8.5.40.jar:8.5.40]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:150) ~[tomcat-embed-core-8.5.40.jar:8.5.40]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1423) ~[tomcat-embed-core-8.5.40.jar:8.5.40]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1413) ~[tomcat-embed-core-8.5.40.jar:8.5.40]
+	at java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:266) ~[?:1.8.0_144]
+	at java.util.concurrent.FutureTask.run(FutureTask.java) ~[?:1.8.0_144]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) ~[?:1.8.0_144]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) ~[?:1.8.0_144]
+	at java.lang.Thread.run(Thread.java:748) ~[?:1.8.0_144]
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.springframework.boot.web.filter.OrderedHttpPutFormContentFilter]: Factory method 'httpPutFormContentFilter' threw exception; nested exception is java.lang.NoClassDefFoundError: Could not initialize class com.fasterxml.jackson.databind.ObjectMapper
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:189) ~[spring-beans-4.3.24.RELEASE.jar:4.3.24.RELEASE]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:588) ~[spring-beans-4.3.24.RELEASE.jar:4.3.24.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1177) ~[spring-beans-4.3.24.RELEASE.jar:4.3.24.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1072) ~[spring-beans-4.3.24.RELEASE.jar:4.3.24.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:511) ~[spring-beans-4.3.24.RELEASE.jar:4.3.24.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:481) ~[spring-beans-4.3.24.RELEASE.jar:4.3.24.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:312) ~[spring-beans-4.3.24.RELEASE.jar:4.3.24.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230) ~[spring-beans-4.3.24.RELEASE.jar:4.3.24.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:308) ~[spring-beans-4.3.24.RELEASE.jar:4.3.24.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202) ~[spring-beans-4.3.24.RELEASE.jar:4.3.24.RELEASE]
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.getOrderedBeansOfType(ServletContextInitializerBeans.java:234) ~[spring-boot-1.5.21.RELEASE.jar:1.5.21.RELEASE]
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.addAsRegistrationBean(ServletContextInitializerBeans.java:182) ~[spring-boot-1.5.21.RELEASE.jar:1.5.21.RELEASE]
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.addAsRegistrationBean(ServletContextInitializerBeans.java:177) ~[spring-boot-1.5.21.RELEASE.jar:1.5.21.RELEASE]
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.addAdaptableBeans(ServletContextInitializerBeans.java:159) ~[spring-boot-1.5.21.RELEASE.jar:1.5.21.RELEASE]
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.<init>(ServletContextInitializerBeans.java:80) ~[spring-boot-1.5.21.RELEASE.jar:1.5.21.RELEASE]
+	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.getServletContextInitializerBeans(EmbeddedWebApplicationContext.java:252) ~[spring-boot-1.5.21.RELEASE.jar:1.5.21.RELEASE]
+	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.selfInitialize(EmbeddedWebApplicationContext.java:225) ~[spring-boot-1.5.21.RELEASE.jar:1.5.21.RELEASE]
+	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.access$000(EmbeddedWebApplicationContext.java:90) ~[spring-boot-1.5.21.RELEASE.jar:1.5.21.RELEASE]
+	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext$1.onStartup(EmbeddedWebApplicationContext.java:215) ~[spring-boot-1.5.21.RELEASE.jar:1.5.21.RELEASE]
+	at org.springframework.boot.context.embedded.tomcat.TomcatStarter.onStartup(TomcatStarter.java:55) ~[spring-boot-1.5.21.RELEASE.jar:1.5.21.RELEASE]
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5225) ~[tomcat-embed-core-8.5.40.jar:8.5.40]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:150) ~[tomcat-embed-core-8.5.40.jar:8.5.40]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1423) ~[tomcat-embed-core-8.5.40.jar:8.5.40]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1413) ~[tomcat-embed-core-8.5.40.jar:8.5.40]
+	at java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:266) ~[?:1.8.0_144]
+	at java.util.concurrent.FutureTask.run(FutureTask.java) ~[?:1.8.0_144]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) ~[?:1.8.0_144]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) ~[?:1.8.0_144]
+	at java.lang.Thread.run(Thread.java:748) ~[?:1.8.0_144]
+Caused by: java.lang.NoClassDefFoundError: Could not initialize class com.fasterxml.jackson.databind.ObjectMapper
+	at org.springframework.http.converter.json.Jackson2ObjectMapperBuilder.build(Jackson2ObjectMapperBuilder.java:597) ~[spring-web-4.3.24.RELEASE.jar:4.3.24.RELEASE]
+	at org.springframework.http.converter.json.MappingJackson2HttpMessageConverter.<init>(MappingJackson2HttpMessageConverter.java:57) ~[spring-web-4.3.24.RELEASE.jar:4.3.24.RELEASE]
+	at org.springframework.http.converter.support.AllEncompassingFormHttpMessageConverter.<init>(AllEncompassingFormHttpMessageConverter.java:66) ~[spring-web-4.3.24.RELEASE.jar:4.3.24.RELEASE]
+	at org.springframework.web.filter.HttpPutFormContentFilter.<init>(HttpPutFormContentFilter.java:64) ~[spring-web-4.3.24.RELEASE.jar:4.3.24.RELEASE]
+	at org.springframework.boot.web.filter.OrderedHttpPutFormContentFilter.<init>(OrderedHttpPutFormContentFilter.java:29) ~[spring-boot-1.5.21.RELEASE.jar:1.5.21.RELEASE]
+	at org.springframework.boot.autoconfigure.web.WebMvcAutoConfiguration.httpPutFormContentFilter(WebMvcAutoConfiguration.java:150) ~[spring-boot-autoconfigure-1.5.21.RELEASE.jar:1.5.21.RELEASE]
+	at org.springframework.boot.autoconfigure.web.WebMvcAutoConfiguration$$EnhancerBySpringCGLIB$$983669bd.CGLIB$httpPutFormContentFilter$0(<generated>) ~[spring-boot-autoconfigure-1.5.21.RELEASE.jar:1.5.21.RELEASE]
+	at org.springframework.boot.autoconfigure.web.WebMvcAutoConfiguration$$EnhancerBySpringCGLIB$$983669bd$$FastClassBySpringCGLIB$$6df61125.invoke(<generated>) ~[spring-boot-autoconfigure-1.5.21.RELEASE.jar:1.5.21.RELEASE]
+	at org.springframework.cglib.proxy.MethodProxy.invokeSuper(MethodProxy.java:228) ~[spring-core-4.3.24.RELEASE.jar:4.3.24.RELEASE]
+	at org.springframework.context.annotation.ConfigurationClassEnhancer$BeanMethodInterceptor.intercept(ConfigurationClassEnhancer.java:358) ~[spring-context-4.3.24.RELEASE.jar:4.3.24.RELEASE]
+	at org.springframework.boot.autoconfigure.web.WebMvcAutoConfiguration$$EnhancerBySpringCGLIB$$983669bd.httpPutFormContentFilter(<generated>) ~[spring-boot-autoconfigure-1.5.21.RELEASE.jar:1.5.21.RELEASE]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_144]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:1.8.0_144]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:1.8.0_144]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[?:1.8.0_144]
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:162) ~[spring-beans-4.3.24.RELEASE.jar:4.3.24.RELEASE]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:588) ~[spring-beans-4.3.24.RELEASE.jar:4.3.24.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1177) ~[spring-beans-4.3.24.RELEASE.jar:4.3.24.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1072) ~[spring-beans-4.3.24.RELEASE.jar:4.3.24.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:511) ~[spring-beans-4.3.24.RELEASE.jar:4.3.24.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:481) ~[spring-beans-4.3.24.RELEASE.jar:4.3.24.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:312) ~[spring-beans-4.3.24.RELEASE.jar:4.3.24.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230) ~[spring-beans-4.3.24.RELEASE.jar:4.3.24.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:308) ~[spring-beans-4.3.24.RELEASE.jar:4.3.24.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202) ~[spring-beans-4.3.24.RELEASE.jar:4.3.24.RELEASE]
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.getOrderedBeansOfType(ServletContextInitializerBeans.java:234) ~[spring-boot-1.5.21.RELEASE.jar:1.5.21.RELEASE]
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.addAsRegistrationBean(ServletContextInitializerBeans.java:182) ~[spring-boot-1.5.21.RELEASE.jar:1.5.21.RELEASE]
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.addAsRegistrationBean(ServletContextInitializerBeans.java:177) ~[spring-boot-1.5.21.RELEASE.jar:1.5.21.RELEASE]
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.addAdaptableBeans(ServletContextInitializerBeans.java:159) ~[spring-boot-1.5.21.RELEASE.jar:1.5.21.RELEASE]
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.<init>(ServletContextInitializerBeans.java:80) ~[spring-boot-1.5.21.RELEASE.jar:1.5.21.RELEASE]
+	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.getServletContextInitializerBeans(EmbeddedWebApplicationContext.java:252) ~[spring-boot-1.5.21.RELEASE.jar:1.5.21.RELEASE]
+	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.selfInitialize(EmbeddedWebApplicationContext.java:225) ~[spring-boot-1.5.21.RELEASE.jar:1.5.21.RELEASE]
+	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.access$000(EmbeddedWebApplicationContext.java:90) ~[spring-boot-1.5.21.RELEASE.jar:1.5.21.RELEASE]
+	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext$1.onStartup(EmbeddedWebApplicationContext.java:215) ~[spring-boot-1.5.21.RELEASE.jar:1.5.21.RELEASE]
+	at org.springframework.boot.context.embedded.tomcat.TomcatStarter.onStartup(TomcatStarter.java:55) ~[spring-boot-1.5.21.RELEASE.jar:1.5.21.RELEASE]
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5225) ~[tomcat-embed-core-8.5.40.jar:8.5.40]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:150) ~[tomcat-embed-core-8.5.40.jar:8.5.40]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1423) ~[tomcat-embed-core-8.5.40.jar:8.5.40]
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1413) ~[tomcat-embed-core-8.5.40.jar:8.5.40]
+	at java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:266) ~[?:1.8.0_144]
+	at java.util.concurrent.FutureTask.run(FutureTask.java) ~[?:1.8.0_144]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) ~[?:1.8.0_144]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) ~[?:1.8.0_144]
+	at java.lang.Thread.run(Thread.java:748) ~[?:1.8.0_144]
+Unable to start embedded container; nested exception is org.springframework.boot.context.embedded.EmbeddedServletContainerException: Unable to start embedded Tomcat
+Disconnected from the target VM, address: '127.0.0.1:52080', transport: 'socket'
 
 Process finished with exit code 0
