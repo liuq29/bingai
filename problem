@@ -1,15 +1,23 @@
-Error starting ApplicationContext. To display the auto-configuration report re-run your application with 'debug' enabled.
-[2023-12-08 15:39:28.583]-[]-[main]-[ERROR]-[LoggingFailureAnalysisReporter-report]-[oapSchedule]
 ***************************
 APPLICATION FAILED TO START
 ***************************
+
 Description:
+
 An attempt was made to call the method org.apache.coyote.AbstractProtocol.setBacklog(I)V but it does not exist. Its class, org.apache.coyote.AbstractProtocol, is available from the following locations:
-    jar:file:/D:/tools/apache-maven-3.3.9/repository/org/apache/tomcat/embed/tomcat-embed-core/9.0.50/tomcat-embed-core-9.0.50.jar!/org/apache/coyote/AbstractProtocol.class
+
+    jar:file:/D:/tools/apache-maven-3.3.9/repository/org/apache/tomcat/embed/tomcat-embed-core/9.0.83/tomcat-embed-core-9.0.83.jar!/org/apache/coyote/AbstractProtocol.class
+
 It was loaded from the following location:
-    file:/D:/tools/apache-maven-3.3.9/repository/org/apache/tomcat/embed/tomcat-embed-core/9.0.50/tomcat-embed-core-9.0.50.jar
+
+    file:/D:/tools/apache-maven-3.3.9/repository/org/apache/tomcat/embed/tomcat-embed-core/9.0.83/tomcat-embed-core-9.0.83.jar
+
+
 Action:
+
 Correct the classpath of your application so that it contains a single, compatible version of org.apache.coyote.AbstractProtocol
+
 Unable to start embedded container; nested exception is java.lang.NoSuchMethodError: org.apache.coyote.AbstractProtocol.setBacklog(I)V
-Disconnected from the target VM, address: '127.0.0.1:52614', transport: 'socket'
+Disconnected from the target VM, address: '127.0.0.1:58768', transport: 'socket'
+
 Process finished with exit code 0
