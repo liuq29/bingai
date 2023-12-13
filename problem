@@ -1,47 +1,24 @@
-我工程pom.xml文件依赖如下：
-<dependency>
-	<groupId>org.springframework.boot</groupId>
-	<artifactId>spring-boot-starter-parent</artifactId>
-	<version>1.5.21.RELEASE</version>
-	<type>pom</type>
-	<scope>import</scope>
-</dependency>
-<dependency>
-	<groupId>org.springframework.boot</groupId>
-	<artifactId>spring-boot-starter-web</artifactId>
-	<exclusions>
-		<exclusion>
-			<artifactId>jackson-databind</artifactId>
-			<groupId>com.fasterxml.jackson.core</groupId>
-		</exclusion>
-		<exclusion>
-			<artifactId>spring-boot-starter-tomcat</artifactId>
-			<groupId>org.springframework.boot</groupId>
-		</exclusion>
-	</exclusions>
-</dependency>
-<dependency>
-	<groupId>com.fasterxml.jackson.core</groupId>
-	<artifactId>jackson-databind</artifactId>
-	<version>2.11.0</version>
-</dependency>
-<dependency>
-	<groupId>org.apache.tomcat.embed</groupId>
-	<artifactId>tomcat-embed-core</artifactId>
-	<version>9.0.83</version>
-</dependency>
-但是，我用idea启动项目报错，控制台报错信息如下：
-***************************
-APPLICATION FAILED TO START
-***************************
-Description:
-An attempt was made to call the method org.apache.coyote.AbstractProtocol.setBacklog(I)V but it does not exist. Its class, org.apache.coyote.AbstractProtocol, is available from the following locations:
-    jar:file:/D:/tools/apache-maven-3.3.9/repository/org/apache/tomcat/embed/tomcat-embed-core/9.0.83/tomcat-embed-core-9.0.83.jar!/org/apache/coyote/AbstractProtocol.class
-It was loaded from the following location:
-    file:/D:/tools/apache-maven-3.3.9/repository/org/apache/tomcat/embed/tomcat-embed-core/9.0.83/tomcat-embed-core-9.0.83.jar
-Action:
-Correct the classpath of your application so that it contains a single, compatible version of org.apache.coyote.AbstractProtocol
-Unable to start embedded container; nested exception is java.lang.NoSuchMethodError: org.apache.coyote.AbstractProtocol.setBacklog(I)V
-Disconnected from the target VM, address: '127.0.0.1:58768', transport: 'socket'
-Process finished with exit code 0
-请帮我分析一下是什么原因，谢谢！
+我在不升级springboot1.5的版本情况下，排除jackson-databind和spring-boot-starter-tomcat单独升级jackson-databind到2.11.0，升级tomcat-embed-core到9.0.83，然后启动项目报错，请帮我分析一下原因，控制台日志如下：
+[2023-12-12 18:27:55.188]-[]-[main]-[ERROR]-[SpringApplication-reportFailure]-[oapSchedule]Application startup failed
+org.springframework.context.ApplicationContextException: Unable to start embedded container; nested exception is java.lang.NoSuchMethodError: 'void org.apache.coyote.AbstractProtocol.setBacklog(int)'
+	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.onRefresh(EmbeddedWebApplicationContext.java:139) ~[spring-boot-1.5.20.RELEASE.jar!/:1.5.20.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:536) ~[spring-context-4.3.23.RELEASE.jar!/:4.3.23.RELEASE]
+	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.refresh(EmbeddedWebApplicationContext.java:124) ~[spring-boot-1.5.20.RELEASE.jar!/:1.5.20.RELEASE]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:693) [spring-boot-1.5.20.RELEASE.jar!/:1.5.20.RELEASE]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:360) [spring-boot-1.5.20.RELEASE.jar!/:1.5.20.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:303) [spring-boot-1.5.20.RELEASE.jar!/:1.5.20.RELEASE]
+	at cn.com.aia.oap.xxl.job.admin.XxlJobAdminApplication.main(XxlJobAdminApplication.java:19) [classes!/:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke(Unknown Source) ~[?:?]
+	at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source) ~[?:?]
+	at java.lang.reflect.Method.invoke(Unknown Source) ~[?:?]
+	at org.springframework.boot.loader.MainMethodRunner.run(MainMethodRunner.java:48) [oap-schedule.jar:?]
+	at org.springframework.boot.loader.Launcher.launch(Launcher.java:87) [oap-schedule.jar:?]
+	at org.springframework.boot.loader.Launcher.launch(Launcher.java:50) [oap-schedule.jar:?]
+	at org.springframework.boot.loader.JarLauncher.main(JarLauncher.java:51) [oap-schedule.jar:?]
+Caused by: java.lang.NoSuchMethodError: 'void org.apache.coyote.AbstractProtocol.setBacklog(int)'
+	at org.springframework.boot.autoconfigure.web.ServerProperties$Tomcat$3.customize(ServerProperties.java:906) ~[spring-boot-autoconfigure-1.5.20.RELEASE.jar!/:1.5.20.RELEASE]
+	at org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory.customizeConnector(TomcatEmbeddedServletContainerFactory.java:336) ~[spring-boot-1.5.20.RELEASE.jar!/:1.5.20.RELEASE]
+	at org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory.getEmbeddedServletContainer(TomcatEmbeddedServletContainerFactory.java:171) ~[spring-boot-1.5.20.RELEASE.jar!/:1.5.20.RELEASE]
+	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.createEmbeddedServletContainer(EmbeddedWebApplicationContext.java:166) ~[spring-boot-1.5.20.RELEASE.jar!/:1.5.20.RELEASE]
+	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.onRefresh(EmbeddedWebApplicationContext.java:136) ~[spring-boot-1.5.20.RELEASE.jar!/:1.5.20.RELEASE]
