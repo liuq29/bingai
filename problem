@@ -1,24 +1,9 @@
-我在不升级springboot1.5的版本情况下，排除jackson-databind和spring-boot-starter-tomcat单独升级jackson-databind到2.11.0，升级tomcat-embed-core到9.0.83，然后启动项目报错，请帮我分析一下原因，控制台日志如下：
-[2023-12-12 18:27:55.188]-[]-[main]-[ERROR]-[SpringApplication-reportFailure]-[oapSchedule]Application startup failed
-org.springframework.context.ApplicationContextException: Unable to start embedded container; nested exception is java.lang.NoSuchMethodError: 'void org.apache.coyote.AbstractProtocol.setBacklog(int)'
-	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.onRefresh(EmbeddedWebApplicationContext.java:139) ~[spring-boot-1.5.20.RELEASE.jar!/:1.5.20.RELEASE]
-	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:536) ~[spring-context-4.3.23.RELEASE.jar!/:4.3.23.RELEASE]
-	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.refresh(EmbeddedWebApplicationContext.java:124) ~[spring-boot-1.5.20.RELEASE.jar!/:1.5.20.RELEASE]
-	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:693) [spring-boot-1.5.20.RELEASE.jar!/:1.5.20.RELEASE]
-	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:360) [spring-boot-1.5.20.RELEASE.jar!/:1.5.20.RELEASE]
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:303) [spring-boot-1.5.20.RELEASE.jar!/:1.5.20.RELEASE]
-	at cn.com.aia.oap.xxl.job.admin.XxlJobAdminApplication.main(XxlJobAdminApplication.java:19) [classes!/:?]
-	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
-	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke(Unknown Source) ~[?:?]
-	at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source) ~[?:?]
-	at java.lang.reflect.Method.invoke(Unknown Source) ~[?:?]
-	at org.springframework.boot.loader.MainMethodRunner.run(MainMethodRunner.java:48) [oap-schedule.jar:?]
-	at org.springframework.boot.loader.Launcher.launch(Launcher.java:87) [oap-schedule.jar:?]
-	at org.springframework.boot.loader.Launcher.launch(Launcher.java:50) [oap-schedule.jar:?]
-	at org.springframework.boot.loader.JarLauncher.main(JarLauncher.java:51) [oap-schedule.jar:?]
-Caused by: java.lang.NoSuchMethodError: 'void org.apache.coyote.AbstractProtocol.setBacklog(int)'
-	at org.springframework.boot.autoconfigure.web.ServerProperties$Tomcat$3.customize(ServerProperties.java:906) ~[spring-boot-autoconfigure-1.5.20.RELEASE.jar!/:1.5.20.RELEASE]
-	at org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory.customizeConnector(TomcatEmbeddedServletContainerFactory.java:336) ~[spring-boot-1.5.20.RELEASE.jar!/:1.5.20.RELEASE]
-	at org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory.getEmbeddedServletContainer(TomcatEmbeddedServletContainerFactory.java:171) ~[spring-boot-1.5.20.RELEASE.jar!/:1.5.20.RELEASE]
-	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.createEmbeddedServletContainer(EmbeddedWebApplicationContext.java:166) ~[spring-boot-1.5.20.RELEASE.jar!/:1.5.20.RELEASE]
-	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.onRefresh(EmbeddedWebApplicationContext.java:136) ~[spring-boot-1.5.20.RELEASE.jar!/:1.5.20.RELEASE]
+1、mapper.xml文件查询语句如下：
+<select id="getList" resultType="cn.com.User" parameterType="java.lang.String">
+        SELECT id,name,age FROM t_user where id = #{id}
+</select>
+
+2、java查询代码如下：
+List<User> userList = mapper.getList();
+
+3、请问如果数据库没有查询到数据，那么userList.size()的结果是0还是报空指针异常？
