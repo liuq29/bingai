@@ -1,9 +1,1 @@
-1、mapper.xml文件查询语句如下：
-<select id="getList" resultType="cn.com.User" parameterType="java.lang.String">
-        SELECT id,name,age FROM t_user where id = #{id}
-</select>
-
-2、java查询代码如下：
-List<User> userList = mapper.getList();
-
-3、请问如果数据库没有查询到数据，那么userList.size()的结果是0还是报空指针异常？
+日期（14位yyyyMMddHHmmss）+ 流水号（8位随机大小写字母）例如：20200710923456xvVOnWX
