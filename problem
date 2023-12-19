@@ -1,1 +1,51 @@
-日期（14位yyyyMMddHHmmss）+ 流水号（8位随机大小写字母）例如：20200710923456xvVOnWX
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Random;
+
+public class SerialNumberGenerator {
+
+    // 生成一个字符串类型的序列号
+    public static String generateSerialNumber() {
+        // 获取当前日期
+        Date date = new Date();
+        // 格式化日期为yyyyMMddHHmmss
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+        // 将日期转换为字符串
+        String dateString = sdf.format(date);
+        // 生成一个8位随机大小写字母的流水号
+        String serialString = generateRandomString(8);
+        // 拼接日期和流水号
+        String serialNumber = dateString + serialString;
+        // 返回序列号
+        return serialNumber;
+    }
+
+    // 生成一个指定长度的随机大小写字母的字符串
+    public static String generateRandomString(int length) {
+        // 定义一个包含大小写字母的字符串
+        String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+        // 创建一个随机数生成器
+        Random random = new Random();
+        // 创建一个字符串缓冲区
+        StringBuilder sb = new StringBuilder();
+        // 循环指定的长度次
+        for (int i = 0; i < length; i++) {
+            // 随机选择一个字母
+            char c = alphabet.charAt(random.nextInt(alphabet.length()));
+            // 将字母添加到字符串缓冲区
+            sb.append(c);
+        }
+        // 将字符串缓冲区转换为字符串
+        String randomString = sb.toString();
+        // 返回随机字符串
+        return randomString;
+    }
+
+    // 测试方法
+    public static void main(String[] args) {
+        // 调用生成序列号的方法
+        String serialNumber = generateSerialNumber();
+        // 打印序列号
+        System.out.println(serialNumber);
+    }
+}
