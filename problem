@@ -1,13 +1,1 @@
-项目启动报错：
-org.springframework.context.ApplicationContextException: Unable to start web server; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'tomcatServletWebServerFactory' defined in class path resource [org/springframework/boot/autoconfigure/web/servlet/ServletWebServerFactoryConfiguration$EmbeddedTomcat.class]: Initialization of bean failed; nested exception is java.lang.IllegalArgumentException: ContextPath must start with '/' and not end with '/'
-	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.onRefresh(ServletWebServerApplicationContext.java:165) ~[spring-boot-2.7.9.jar:2.7.9]
-	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:577) ~[spring-context-5.3.25.jar:5.3.25]
-	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:147) ~[spring-boot-2.7.9.jar:2.7.9]
-	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:731) [spring-boot-2.7.9.jar:2.7.9]
-	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:408) [spring-boot-2.7.9.jar:2.7.9]
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:307) [spring-boot-2.7.9.jar:2.7.9]
-	at cn.com.liu.oap.xxl.job.admin.XxlJobAdminApplication.main(XxlJobAdminApplication.java:22) [classes/:?]
-我的项目配置文件上下文路径配置如下：
-server.port=8088
-server.context-path=/oapSchedule
-context.path.prefix=/st4
+evaluating OGNL expression: \"#lists.size(map.value) > 1\" (template: \"questionResultHealth.html\" - line 63， col 22)"，"data":{}}]
