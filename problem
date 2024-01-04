@@ -1,42 +1,5 @@
-Traceback (most recent call last):
-  File "/mnt/workspace/Langchain-Chatchat/server/utils.py", line 22, in wrap_done
-    await fn
-  File "/opt/conda/envs/Langchain-Chatchat/lib/python3.10/site-packages/langchain/chains/base.py", line 381, in acall
-    raise e
-  File "/opt/conda/envs/Langchain-Chatchat/lib/python3.10/site-packages/langchain/chains/base.py", line 375, in acall
-    await self._acall(inputs, run_manager=run_manager)
-  File "/opt/conda/envs/Langchain-Chatchat/lib/python3.10/site-packages/langchain/chains/llm.py", line 275, in _acall
-    response = await self.agenerate([inputs], run_manager=run_manager)
-  File "/opt/conda/envs/Langchain-Chatchat/lib/python3.10/site-packages/langchain/chains/llm.py", line 142, in agenerate
-    return await self.llm.agenerate_prompt(
-  File "/opt/conda/envs/Langchain-Chatchat/lib/python3.10/site-packages/langchain_core/language_models/chat_models.py", line 501, in agenerate_prompt
-    return await self.agenerate(
-  File "/opt/conda/envs/Langchain-Chatchat/lib/python3.10/site-packages/langchain_core/language_models/chat_models.py", line 461, in agenerate
-    raise exceptions[0]
-  File "/opt/conda/envs/Langchain-Chatchat/lib/python3.10/site-packages/langchain_core/language_models/chat_models.py", line 564, in _agenerate_with_cache
-    return await self._agenerate(
-  File "/opt/conda/envs/Langchain-Chatchat/lib/python3.10/site-packages/langchain/chat_models/openai.py", line 506, in _agenerate
-    return await agenerate_from_stream(stream_iter)
-  File "/opt/conda/envs/Langchain-Chatchat/lib/python3.10/site-packages/langchain_core/language_models/chat_models.py", line 81, in agenerate_from_stream
-    async for chunk in stream:
-  File "/opt/conda/envs/Langchain-Chatchat/lib/python3.10/site-packages/langchain/chat_models/openai.py", line 472, in _astream
-    async for chunk in await acompletion_with_retry(
-  File "/opt/conda/envs/Langchain-Chatchat/lib/python3.10/site-packages/langchain/chat_models/openai.py", line 101, in acompletion_with_retry
-    return await llm.async_client.create(**kwargs)
-  File "/opt/conda/envs/Langchain-Chatchat/lib/python3.10/site-packages/openai/resources/chat/completions.py", line 1295, in create
-    return await self._post(
-  File "/opt/conda/envs/Langchain-Chatchat/lib/python3.10/site-packages/openai/_base_client.py", line 1536, in post
-    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
-  File "/opt/conda/envs/Langchain-Chatchat/lib/python3.10/site-packages/openai/_base_client.py", line 1315, in request
-    return await self._request(
-  File "/opt/conda/envs/Langchain-Chatchat/lib/python3.10/site-packages/openai/_base_client.py", line 1358, in _request
-    return await self._retry_request(
-  File "/opt/conda/envs/Langchain-Chatchat/lib/python3.10/site-packages/openai/_base_client.py", line 1418, in _retry_request
-    return await self._request(
-  File "/opt/conda/envs/Langchain-Chatchat/lib/python3.10/site-packages/openai/_base_client.py", line 1358, in _request
-    return await self._retry_request(
-  File "/opt/conda/envs/Langchain-Chatchat/lib/python3.10/site-packages/openai/_base_client.py", line 1418, in _retry_request
-    return await self._request(
-  File "/opt/conda/envs/Langchain-Chatchat/lib/python3.10/site-packages/openai/_base_client.py", line 1367, in _request
-    raise APIConnectionError(request=request) from err
-openai.APIConnectionError: Connection error.
+请使用template输出代码，我需要一个H5登录页面，页面元素有一个手机号输入框，一个密码输入框，一个登录按钮，按钮需要使用aiabutton组件。
+
+aiabutton请使用基础用法中的单个按钮使用方法生成
+
+请结合登录页面，输出完整代码。
