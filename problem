@@ -1,123 +1,48 @@
-给定一个集合listA=
-[
-    {
-        "productName": "友邦友享一",
-        "co": "0986",
-        "policyNum": "C843445453",
-        "insuredIdList": [
-            "453342"
-        ],
-        "insuredNameList": [
-            "被保人一"
-        ],
-        "payeeId": "453342",
-        "payeeName": "被保人一",
-        "payeeRole": "I",
-        "payeeType": "MS",
-        "payeeAmount": "1000.00",
-        "cleanIndList": [
-            "S05",
-            "S03"
-        ]
-    },
-    {
-        "productName": "友邦友享一",
-        "co": "0986",
-        "policyNum": "C843445453",
-        "insuredIdList": [
-            "453342"
-        ],
-        "insuredNameList": [
-            "被保人一"
-        ],
-        "payeeId": "453342",
-        "payeeName": "被保人一",
-        "payeeRole": "I",
-        "payeeType": "TB",
-        "payeeAmount": "1000.00",
-        "cleanIndList": [
-            "S05",
-            "S03"
-        ]
-    },
-    {
-        "productName": "友邦友享二",
-        "co": "0986",
-        "policyNum": "C11455326",
-        "insuredIdList": [
-            "665685"
-        ],
-        "insuredNameList": [
-            "被保人二"
-        ],
-        "payeeId": "785343",
-        "payeeName": "领款人一",
-        "payeeRole": "P",
-        "payeeType": "TB",
-        "payeeAmount": "1000.00",
-        "cleanIndList": [
-            "S02"
-        ]
-    },
-    {
-        "productName": "友邦友享三",
-        "co": "0986",
-        "policyNum": "C78773799",
-        "insuredIdList": [
-            "988777"
-        ],
-        "insuredNameList": [
-            "被保人三"
-        ],
-        "payeeId": "988777",
-        "payeeName": "被保人三",
-        "payeeRole": "I",
-        "payeeType": "TB",
-        "payeeAmount": "1000.00",
-        "cleanIndList": [
-            "S03"
-        ]
-    }
-]
-要求用Java把listA集合以集合里cleanIndList里的元素进行分组得到一个map，map里的key是cleanIndList里元素分组得到，map里的value是一个对象，对象里的data字段是一个集合
-最终得到的map数据如下：
-{
-    "S05": {
-        "data": [
-            {
-                "co": "0986",
-                "policyNum": "C843445453",
-                "payeeId": "453342",
-                "payeeName": "被保人一"
-            }
-        ]
-    },
-    "S03": {
-        "data": [
-            {
-                "co": "0986",
-                "policyNum": "C843445453",
-                "payeeId": "453342",
-                "payeeName": "被保人一"
-            },
-            {
-                "co": "0986",
-                "policyNum": "C78773799",
-                "payeeId": "988777",
-                "payeeName": "被保人三"
-            }
-        ]
-    },
-    "S02": {
-        "data": [
-            {
-                "co": "0986",
-                "policyNum": "C11455326",
-                "payeeId": "785343",
-                "payeeName": "领款人一",
-                "payeeRole": "P"
-            }
-        ]
-    }
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.Data;
+
+import java.util.List;
+import java.util.Set;
+
+/**
+ * 待领款项信息
+ */
+@Tag(name = "待领款项实体", description = "封装待领款项实体类")
+@Data
+public class PendingWithdrawInfo {
+
+    @Schema(name = "productName", description ="主险产品名称")
+    private String productName;
+
+    @Schema(name = "co", description ="分公司")
+    private String co;
+
+    @Schema(name = "policyNum", description ="保单号")
+    private String policyNum;
+
+    @Schema(name = "insuredIdList", description ="被保人id")
+    private List<String> insuredIdList;
+
+    @Schema(name = "insuredNameList", description ="被保人姓名")
+    private List<String> insuredNameList;
+
+    @Schema(name = "payeeId", description ="领款人id")
+    private String payeeId;
+
+    @Schema(name = "payeeName", description ="领款人姓名")
+    private String payeeName;
+
+    @Schema(name = "payeeRole", description ="领款人角色")
+    private String payeeRole;
+
+    @Schema(name = "payeeType", description ="款项类型，MS-满期金 TB-退保 ZZ-小中止")
+    private String payeeType;
+
+    @Schema(name = "payeeAmount", description ="款项金额")
+    private String payeeAmount;
+
+    @Schema(name = "cleanIndList", description ="待清理标识集合，S05：9要素清理；S03：生存证明；S02：待领款账号缺失")
+    private Set<String> cleanIndList;
+
 }
-请给出Java代码，注意map里data集合里每个对象里的payeeId值不能重复
