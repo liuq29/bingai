@@ -1,5 +1,123 @@
-请使用template输出代码，我需要一个H5登录页面，页面元素有一个手机号输入框，一个密码输入框，一个登录按钮，按钮需要使用aiabutton组件。
-
-aiabutton请使用基础用法中的单个按钮使用方法生成
-
-请结合登录页面，输出完整代码。
+给定一个集合listA=
+[
+    {
+        "productName": "友邦友享一",
+        "co": "0986",
+        "policyNum": "C843445453",
+        "insuredIdList": [
+            "453342"
+        ],
+        "insuredNameList": [
+            "被保人一"
+        ],
+        "payeeId": "453342",
+        "payeeName": "被保人一",
+        "payeeRole": "I",
+        "payeeType": "MS",
+        "payeeAmount": "1000.00",
+        "cleanIndList": [
+            "S05",
+            "S03"
+        ]
+    },
+    {
+        "productName": "友邦友享一",
+        "co": "0986",
+        "policyNum": "C843445453",
+        "insuredIdList": [
+            "453342"
+        ],
+        "insuredNameList": [
+            "被保人一"
+        ],
+        "payeeId": "453342",
+        "payeeName": "被保人一",
+        "payeeRole": "I",
+        "payeeType": "TB",
+        "payeeAmount": "1000.00",
+        "cleanIndList": [
+            "S05",
+            "S03"
+        ]
+    },
+    {
+        "productName": "友邦友享二",
+        "co": "0986",
+        "policyNum": "C11455326",
+        "insuredIdList": [
+            "665685"
+        ],
+        "insuredNameList": [
+            "被保人二"
+        ],
+        "payeeId": "785343",
+        "payeeName": "领款人一",
+        "payeeRole": "P",
+        "payeeType": "TB",
+        "payeeAmount": "1000.00",
+        "cleanIndList": [
+            "S02"
+        ]
+    },
+    {
+        "productName": "友邦友享三",
+        "co": "0986",
+        "policyNum": "C78773799",
+        "insuredIdList": [
+            "988777"
+        ],
+        "insuredNameList": [
+            "被保人三"
+        ],
+        "payeeId": "988777",
+        "payeeName": "被保人三",
+        "payeeRole": "I",
+        "payeeType": "TB",
+        "payeeAmount": "1000.00",
+        "cleanIndList": [
+            "S03"
+        ]
+    }
+]
+要求用Java把listA集合以集合里cleanIndList里的元素进行分组得到一个map，map里的key是cleanIndList里元素分组得到，map里的value是一个对象，对象里的data字段是一个集合
+最终得到的map数据如下：
+{
+    "S05": {
+        "data": [
+            {
+                "co": "0986",
+                "policyNum": "C843445453",
+                "payeeId": "453342",
+                "payeeName": "被保人一"
+            }
+        ]
+    },
+    "S03": {
+        "data": [
+            {
+                "co": "0986",
+                "policyNum": "C843445453",
+                "payeeId": "453342",
+                "payeeName": "被保人一"
+            },
+            {
+                "co": "0986",
+                "policyNum": "C78773799",
+                "payeeId": "988777",
+                "payeeName": "被保人三"
+            }
+        ]
+    },
+    "S02": {
+        "data": [
+            {
+                "co": "0986",
+                "policyNum": "C11455326",
+                "payeeId": "785343",
+                "payeeName": "领款人一",
+                "payeeRole": "P"
+            }
+        ]
+    }
+}
+请给出Java代码，注意map里data集合里每个对象里的payeeId值不能重复
