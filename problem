@@ -1,48 +1,31 @@
+
+
+
 import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.tags.Tag;
+
+public class Policy {
+
+    private String alphaid;
+
+    private String co;
+
+    private String policyNum;
+
+    private String payeeId;
+
+    private String policyChangeStatus;
+}
+
+
+
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.util.List;
-import java.util.Set;
 
-/**
- * 待领款项信息
- */
-@Tag(name = "待领款项实体", description = "封装待领款项实体类")
 @Data
-public class PendingWithdrawInfo {
+public class PolicyData {
 
-    @Schema(name = "productName", description ="主险产品名称")
-    private String productName;
-
-    @Schema(name = "co", description ="分公司")
-    private String co;
-
-    @Schema(name = "policyNum", description ="保单号")
-    private String policyNum;
-
-    @Schema(name = "insuredIdList", description ="被保人id")
-    private List<String> insuredIdList;
-
-    @Schema(name = "insuredNameList", description ="被保人姓名")
-    private List<String> insuredNameList;
-
-    @Schema(name = "payeeId", description ="领款人id")
-    private String payeeId;
-
-    @Schema(name = "payeeName", description ="领款人姓名")
-    private String payeeName;
-
-    @Schema(name = "payeeRole", description ="领款人角色")
-    private String payeeRole;
-
-    @Schema(name = "payeeType", description ="款项类型，MS-满期金 TB-退保 ZZ-小中止")
-    private String payeeType;
-
-    @Schema(name = "payeeAmount", description ="款项金额")
-    private String payeeAmount;
-
-    @Schema(name = "cleanIndList", description ="待清理标识集合，S05：9要素清理；S03：生存证明；S02：待领款账号缺失")
-    private Set<String> cleanIndList;
-
+    private List<Policy> data;
 }
