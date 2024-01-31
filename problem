@@ -1,60 +1,11 @@
-{
-	"S02":{
-		"data":[
-			{
-				"payeeId":"785343",
-				"payeeName":"领款人一",
-				"payeeRole":"P",
-				"payeeType":"TB",
-				"policyList":[{
-					"co":"0986",
-					"policyNum":"C11455326"
-				}]
-			}
-		]
-	},
-	"S03":{
-		"data":[
-			{
-				"payeeId":"453342",
-				"payeeName":"被保人一",
-				"payeeRole":"I",
-				"payeeType":"MS",
-				"policyList":[{
-					"co":"0986",
-					"policyNum":"C843445453"
-				},{
-					"co":"0986",
-					"policyNum":"C89898989"
-				}]
-			},
-			{
-				"payeeId":"988777",
-				"payeeName":"被保人三",
-				"payeeRole":"I",
-				"payeeType":"TB",
-				"policyList":[{
-					"co":"0986",
-					"policyNum":"C78773799"
-				}]
-			}
-		]
-	},
-	"S05":{
-		"data":[
-			{
-				"payeeId":"453342",
-				"payeeName":"被保人一",
-				"payeeRole":"I",
-				"payeeType":"MS",
-				"policyList":[{
-					"co":"0986",
-					"policyNum":"C843445453"
-				},{
-					"co":"0986",
-					"policyNum":"C89898989"
-				}]
-			}
-		]
-	}
+public class Customer {
+    private Set<Policy> policyList;
+    private String payeeId;
+    private String payeeName;
+    private String payeeRole;
+
+    public static class Policy{
+        private String co;
+        private String policyNum;
+    }
 }
