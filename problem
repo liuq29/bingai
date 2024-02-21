@@ -1,11 +1,32 @@
-public class Customer {
-    private Set<Policy> policyList;
-    private String payeeId;
-    private String payeeName;
-    private String payeeRole;
-
-    public static class Policy{
-        private String co;
-        private String policyNum;
-    }
-}
+String jsonStr = "[\n" +
+                "    {\n" +
+                "        \"payeeId\": \"124303568\",\n" +
+                "        \"payeeName\": \"张三\",\n" +
+                "        \"payeeRole\": \"P\",\n" +
+                "        \"policyList\": [\n" +
+                "            {\n" +
+                "                \"co\": \"0986\",\n" +
+                "                \"policyNum\": \"C123411233\"\n" +
+                "            },\n" +
+                "            {\n" +
+                "                \"co\": \"0986\",\n" +
+                "                \"policyNum\": \"H324324223\"\n" +
+                "            }\n" +
+                "        ]\n" +
+                "    },\n" +
+                "    {\n" +
+                "        \"payeeId\": \"2343242\",\n" +
+                "        \"payeeName\": \"赵六七\",\n" +
+                "        \"payeeRole\": \"P\",\n" +
+                "        \"policyList\": [\n" +
+                "            {\n" +
+                "                \"co\": \"0986\",\n" +
+                "                \"policyNum\": \"A78923323\"\n" +
+                "            }\n" +
+                "        ]\n" +
+                "    }\n" +
+                "]";
+        List<Customer> customerList = JSONArray.parseArray(jsonStr,Customer.class);
+        遍历customerList最终得到一个字符串，字符串结果如下：
+        保单号：C123411233、领款人：张三，保单号：H324324223、领款人：张三，保单号：A78923323、领款人：赵六七
+        请给出代码，最好用Java lambda表达式实现
