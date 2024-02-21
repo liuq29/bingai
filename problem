@@ -136,3 +136,40 @@ public class WithdrawInfo {
             }
         ]
 请把测试数据按照policyNum和payeeType都相同的数据合并为一条数据，合并时候请注意其中payeeType、payeeAmount、payDate三个字段收集到对象PendingWithdrawInfo里withdrawInfoList字段里，最终得到pendingWithdrawInfoList集合
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class Main {
+    public static void main(String[] args) {
+        // 测试数据
+        List<PendingWithdrawInfo> pendingWithdrawInfoList = new ArrayList<>();
+        // 这里添加测试数据，因为是示例，我就不重复添加完整数据了
+
+        // 存储合并后的数据
+        Map<String, PendingWithdrawInfo> map = new HashMap<>();
+        for (PendingWithdrawInfo info : pendingWithdrawInfoList) {
+            // 组合键，确保policyNum和payeeId的唯一性
+            String key = info.getPolicyNum() + "|" + info.getPayeeId();
+            if (!map.containsKey(key)) {
+                info.setWithdrawInfoList(new ArrayList<>()); // 确保有初始化列表
+                info.getWithdrawInfoList().add(new WithdrawInfo(info.getPayeeType(), info.getPayeeAmount(), info.getPayDate()));
+                map.put(key, info);
+            } else {
+                // 已存在，更新withdrawInfoList
+                PendingWithdrawInfo existingInfo = map.get(key);
+                existingInfo.getWithdrawInfoList().add(new WithdrawInfo(info.getPayeeType(), info.getPayeeAmount(), info.getPayDate()));
+            }
+        }
+
+        // 将Map转换回List
+        List<PendingWithdrawInfo> mergedPendingWithdrawInfoList = new ArrayList<>(map.values());
+
+        // 打印结果进行检查
+        for (PendingWithdrawInfo info : mergedPendingWithdrawInfoList) {
+            System.out.println(info); // 根据你的PendingWithdrawInfo类实现toString方法或者自定义打印格式
+        }
+    }
+}
