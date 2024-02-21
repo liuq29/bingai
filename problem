@@ -30,3 +30,109 @@ String jsonStr = "[\n" +
         遍历customerList最终得到一个字符串，字符串结果如下：
         保单号：C123411233、领款人：张三，保单号：H324324223、领款人：张三，保单号：A78923323、领款人：赵六七
         请给出代码，最好用Java lambda表达式实现
+
+
+2.============================================================
+给定Java对象如下：
+public class PendingWithdrawInfo {
+    private String productName;
+
+    private String co;
+
+    private String policyNum;
+
+    private List<String> insuredIdList;
+
+    private List<String> insuredNameList;
+
+    private String payeeId;
+
+    private String payeeName;
+
+    private String payeeRole;
+
+    private String customerBirthday;
+
+    private String payeeType;
+
+    private String payeeAmount;
+
+    private String payDate;
+
+    private List<WithdrawInfo> withdrawInfoList;
+
+    private Set<String> cleanIndList;
+}
+
+public class WithdrawInfo {
+    private String payeeType;
+
+    private String payeeAmount;
+
+    private String payDate;
+}
+
+给定测试数据如下：
+"pendingWithdrawInfoList": [
+            {
+                "cleanIndList": [
+                    "S05"
+                ],
+                "co": "0986",
+                "insuredIdList": [
+                    "124303568"
+                ],
+                "insuredNameList": [
+                    "东先已"
+                ],
+                "payDate": "2026-12-10",
+                "payeeAmount": "10.00",
+                "payeeId": "124303568",
+                "payeeName": "东先已",
+                "payeeRole": "P",
+                "payeeType": "MS",
+                "policyNum": "C123411233",
+                "productName": "鸿丰宝两全保险（分红型）"
+            },
+            {
+                "cleanIndList": [
+                    "S05"
+                ],
+                "co": "0986",
+                "insuredIdList": [
+                    "124303568"
+                ],
+                "insuredNameList": [
+                    "东先已"
+                ],
+                "payDate": "2026-12-12",
+                "payeeAmount": "46387.00",
+                "payeeId": "124303568",
+                "payeeName": "东先已",
+                "payeeRole": "P",
+                "payeeType": "TB",
+                "policyNum": "C123411233",
+                "productName": "鸿丰宝两全保险（分红型）"
+            },
+            {
+                "cleanIndList": [
+                    "S03"
+                ],
+                "co": "0986",
+                "insuredIdList": [
+                    "124285468"
+                ],
+                "insuredNameList": [
+                    "高解浪"
+                ],
+                "payDate": "2025-01-02",
+                "payeeAmount": "0.00",
+                "payeeId": "124285468",
+                "payeeName": "高解浪",
+                "payeeRole": "I",
+                "payeeType": "TB",
+                "policyNum": "H202455411",
+                "productName": "智选康逸荣耀（2021）医疗保险"
+            }
+        ]
+请把测试数据按照policyNum和payeeType都相同的数据合并为一条数据，合并时候请注意其中payeeType、payeeAmount、payDate三个字段收集到对象PendingWithdrawInfo里withdrawInfoList字段里，最终得到pendingWithdrawInfoList集合
