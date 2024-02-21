@@ -31,7 +31,17 @@ String jsonStr = "[\n" +
         保单号：C123411233、领款人：张三，保单号：H324324223、领款人：张三，保单号：A78923323、领款人：赵六七
         请给出代码，最好用Java lambda表达式实现
 
+import java.util.stream.Collectors;
 
+// Assuming jsonStr is your JSON string
+List<Customer> customerList = JSONArray.parseArray(jsonStr, Customer.class);
+
+String result = customerList.stream()
+    .flatMap(customer -> customer.getPolicyList().stream()
+        .map(policy -> String.format("保单号：%s、领款人：%s", policy.getPolicyNum(), customer.getPayeeName())))
+    .collect(Collectors.joining("，"));
+
+System.out.println(result);
 2.============================================================
 给定Java对象如下：
 public class PendingWithdrawInfo {
