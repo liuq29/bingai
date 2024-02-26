@@ -1,66 +1,60 @@
-2024-02-26 13:48:39,905 - startup.py[line:650] - INFO: 正在启动服务：
-2024-02-26 13:48:39,905 - startup.py[line:651] - INFO: 如需查看 llm_api 日志，请前往 /mnt/workspace/Langchain-Chatchat/logs
-2024-02-26 13:48:41 | INFO | model_worker | Register to controller
-2024-02-26 13:48:42 | ERROR | stderr | INFO:     Started server process [1714]
-2024-02-26 13:48:42 | ERROR | stderr | INFO:     Waiting for application startup.
-2024-02-26 13:48:42 | ERROR | stderr | INFO:     Application startup complete.
-2024-02-26 13:48:42 | ERROR | stderr | INFO:     Uvicorn running on http://0.0.0.0:20000 (Press CTRL+C to quit)
-2024-02-26 13:48:43.323738: I tensorflow/core/util/port.cc:111] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
-2024-02-26 13:48:43.354904: E tensorflow/compiler/xla/stream_executor/cuda/cuda_dnn.cc:9342] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
-2024-02-26 13:48:43.354931: E tensorflow/compiler/xla/stream_executor/cuda/cuda_fft.cc:609] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
-2024-02-26 13:48:43.354956: E tensorflow/compiler/xla/stream_executor/cuda/cuda_blas.cc:1518] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
-2024-02-26 13:48:43.360258: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
-To enable the following instructions: AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
-RuntimeError: module compiled against API version 0x10 but this version of numpy is 0xf
-ImportError: numpy.core._multiarray_umath failed to import
-ImportError: numpy.core.umath failed to import
-Process model_worker - chatglm3-6b:
+2024-02-26 14:05:51,979 - _client.py[line:1027] - INFO: HTTP Request: POST http://127.0.0.1:7861/chat/chat "HTTP/1.1 200 OK"
+2024-02-26 14:05:51 | INFO | stdout | INFO:     127.0.0.1:51904 - "POST /v1/chat/completions HTTP/1.1" 200 OK
+2024-02-26 14:05:52,014 - _client.py[line:1758] - INFO: HTTP Request: POST http://127.0.0.1:20000/v1/chat/completions "HTTP/1.1 200 OK"
+2024-02-26 14:05:52 | INFO | httpx | HTTP Request: POST http://127.0.0.1:21001/worker_generate_stream "HTTP/1.1 200 OK"
+2024-02-26 14:05:52,016 - utils.py[line:24] - ERROR: object of type 'NoneType' has no len()
 Traceback (most recent call last):
-  File "/opt/conda/lib/python3.10/site-packages/transformers/utils/import_utils.py", line 1184, in _get_module
-    return importlib.import_module("." + module_name, self.__name__)
-  File "/opt/conda/lib/python3.10/importlib/__init__.py", line 126, in import_module
-    return _bootstrap._gcd_import(name[level:], package, level)
-  File "<frozen importlib._bootstrap>", line 1050, in _gcd_import
-  File "<frozen importlib._bootstrap>", line 1027, in _find_and_load
-  File "<frozen importlib._bootstrap>", line 1006, in _find_and_load_unlocked
-  File "<frozen importlib._bootstrap>", line 688, in _load_unlocked
-  File "<frozen importlib._bootstrap_external>", line 883, in exec_module
-  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
-  File "/opt/conda/lib/python3.10/site-packages/transformers/trainer_utils.py", line 49, in <module>
-    import tensorflow as tf
-  File "/opt/conda/lib/python3.10/site-packages/tensorflow/__init__.py", line 38, in <module>
-    from tensorflow.python.tools import module_util as _module_util
-  File "/opt/conda/lib/python3.10/site-packages/tensorflow/python/__init__.py", line 42, in <module>
-    from tensorflow.python.saved_model import saved_model
-  File "/opt/conda/lib/python3.10/site-packages/tensorflow/python/saved_model/saved_model.py", line 20, in <module>
-    from tensorflow.python.saved_model import builder
-  File "/opt/conda/lib/python3.10/site-packages/tensorflow/python/saved_model/builder.py", line 23, in <module>
-    from tensorflow.python.saved_model.builder_impl import _SavedModelBuilder
-  File "/opt/conda/lib/python3.10/site-packages/tensorflow/python/saved_model/builder_impl.py", line 26, in <module>
-    from tensorflow.python.framework import dtypes
-  File "/opt/conda/lib/python3.10/site-packages/tensorflow/python/framework/dtypes.py", line 37, in <module>
-    _np_bfloat16 = pywrap_ml_dtypes.bfloat16()
-TypeError: Unable to convert function return value to a Python type! The signature was
-        () -> handle
-
-The above exception was the direct cause of the following exception:
-
+  File "/mnt/workspace/Langchain-Chatchat/server/utils.py", line 22, in wrap_done
+    await fn
+  File "/opt/conda/envs/Langchain-Chatchat/lib/python3.10/site-packages/langchain/chains/base.py", line 381, in acall
+    raise e
+  File "/opt/conda/envs/Langchain-Chatchat/lib/python3.10/site-packages/langchain/chains/base.py", line 375, in acall
+    await self._acall(inputs, run_manager=run_manager)
+  File "/opt/conda/envs/Langchain-Chatchat/lib/python3.10/site-packages/langchain/chains/llm.py", line 275, in _acall
+    response = await self.agenerate([inputs], run_manager=run_manager)
+  File "/opt/conda/envs/Langchain-Chatchat/lib/python3.10/site-packages/langchain/chains/llm.py", line 142, in agenerate
+    return await self.llm.agenerate_prompt(
+  File "/opt/conda/envs/Langchain-Chatchat/lib/python3.10/site-packages/langchain_core/language_models/chat_models.py", line 501, in agenerate_prompt
+    return await self.agenerate(
+  File "/opt/conda/envs/Langchain-Chatchat/lib/python3.10/site-packages/langchain_core/language_models/chat_models.py", line 461, in agenerate
+    raise exceptions[0]
+  File "/opt/conda/envs/Langchain-Chatchat/lib/python3.10/site-packages/langchain_core/language_models/chat_models.py", line 564, in _agenerate_with_cache
+    return await self._agenerate(
+  File "/opt/conda/envs/Langchain-Chatchat/lib/python3.10/site-packages/langchain/chat_models/openai.py", line 506, in _agenerate
+    return await agenerate_from_stream(stream_iter)
+  File "/opt/conda/envs/Langchain-Chatchat/lib/python3.10/site-packages/langchain_core/language_models/chat_models.py", line 81, in agenerate_from_stream
+    async for chunk in stream:
+  File "/opt/conda/envs/Langchain-Chatchat/lib/python3.10/site-packages/langchain/chat_models/openai.py", line 477, in _astream
+    if len(chunk["choices"]) == 0:
+TypeError: object of type 'NoneType' has no len()
+2024-02-26 14:05:52,016 - utils.py[line:27] - ERROR: TypeError: Caught exception: object of type 'NoneType' has no len()
+2024-02-26 14:05:52.017 Uncaught app exception
 Traceback (most recent call last):
-  File "/opt/conda/lib/python3.10/multiprocessing/process.py", line 314, in _bootstrap
-    self.run()
-  File "/opt/conda/lib/python3.10/multiprocessing/process.py", line 108, in run
-    self._target(*self._args, **self._kwargs)
-  File "/mnt/workspace/Langchain-Chatchat/startup.py", line 386, in run_model_worker
-    app = create_model_worker_app(log_level=log_level, **kwargs)
-  File "/mnt/workspace/Langchain-Chatchat/startup.py", line 171, in create_model_worker_app
-    from fastchat.serve.model_worker import app, GptqConfig, AWQConfig, ModelWorker, worker_id
-  File "/opt/conda/lib/python3.10/site-packages/fastchat/serve/model_worker.py", line 14, in <module>
-    from transformers import set_seed
-  File "<frozen importlib._bootstrap>", line 1075, in _handle_fromlist
-  File "/opt/conda/lib/python3.10/site-packages/transformers/utils/import_utils.py", line 1174, in __getattr__
-    module = self._get_module(self._class_to_module[name])
-  File "/opt/conda/lib/python3.10/site-packages/transformers/utils/import_utils.py", line 1186, in _get_module
-    raise RuntimeError(
-RuntimeError: Failed to import transformers.trainer_utils because of the following error (look up to see its traceback):
-Unable to convert function return value to a Python type! The signature was
-        () -> handle
+  File "/opt/conda/envs/Langchain-Chatchat/lib/python3.10/site-packages/streamlit/runtime/scriptrunner/script_runner.py", line 534, in _run_script
+    exec(code, module.__dict__)
+  File "/mnt/workspace/Langchain-Chatchat/webui.py", line 64, in <module>
+    pages[selected_page]["func"](api=api, is_lite=is_lite)
+  File "/mnt/workspace/Langchain-Chatchat/webui_pages/dialogue/dialogue.py", line 326, in dialogue_page
+    chat_box.show_feedback(**feedback_kwargs,
+  File "/opt/conda/envs/Langchain-Chatchat/lib/python3.10/site-packages/streamlit_chatbox/messages.py", line 309, in show_feedback
+    return streamlit_feedback(**kwargs)
+  File "/opt/conda/envs/Langchain-Chatchat/lib/python3.10/site-packages/streamlit_feedback/__init__.py", line 104, in streamlit_feedback
+    component_value = _component_func(
+  File "/opt/conda/envs/Langchain-Chatchat/lib/python3.10/site-packages/streamlit/components/v1/components.py", line 80, in __call__
+    return self.create_instance(*args, default=default, key=key, **kwargs)
+  File "/opt/conda/envs/Langchain-Chatchat/lib/python3.10/site-packages/streamlit/runtime/metrics_util.py", line 396, in wrapped_func
+    result = non_optional_func(*args, **kwargs)
+  File "/opt/conda/envs/Langchain-Chatchat/lib/python3.10/site-packages/streamlit/components/v1/components.py", line 241, in create_instance
+    return_value = marshall_component(dg, element)
+  File "/opt/conda/envs/Langchain-Chatchat/lib/python3.10/site-packages/streamlit/components/v1/components.py", line 212, in marshall_component
+    component_state = register_widget(
+  File "/opt/conda/envs/Langchain-Chatchat/lib/python3.10/site-packages/streamlit_option_menu/streamlit_callback.py", line 20, in wrapper_register_widget
+    return register_widget(*args, **kwargs)
+  File "/opt/conda/envs/Langchain-Chatchat/lib/python3.10/site-packages/streamlit/runtime/state/widgets.py", line 161, in register_widget
+    return register_widget_from_metadata(metadata, ctx, widget_func_name, element_type)
+  File "/opt/conda/envs/Langchain-Chatchat/lib/python3.10/site-packages/streamlit/runtime/state/widgets.py", line 194, in register_widget_from_metadata
+    raise DuplicateWidgetID(
+streamlit.errors.DuplicateWidgetID: There are multiple widgets with the same `key=''`.
+
+To fix this, please make sure that the `key` argument is unique for each
+widget you create.
