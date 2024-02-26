@@ -1,185 +1,66 @@
-String jsonStr = "[\n" +
-                "    {\n" +
-                "        \"payeeId\": \"124303568\",\n" +
-                "        \"payeeName\": \"张三\",\n" +
-                "        \"payeeRole\": \"P\",\n" +
-                "        \"policyList\": [\n" +
-                "            {\n" +
-                "                \"co\": \"0986\",\n" +
-                "                \"policyNum\": \"C123411233\"\n" +
-                "            },\n" +
-                "            {\n" +
-                "                \"co\": \"0986\",\n" +
-                "                \"policyNum\": \"H324324223\"\n" +
-                "            }\n" +
-                "        ]\n" +
-                "    },\n" +
-                "    {\n" +
-                "        \"payeeId\": \"2343242\",\n" +
-                "        \"payeeName\": \"赵六七\",\n" +
-                "        \"payeeRole\": \"P\",\n" +
-                "        \"policyList\": [\n" +
-                "            {\n" +
-                "                \"co\": \"0986\",\n" +
-                "                \"policyNum\": \"A78923323\"\n" +
-                "            }\n" +
-                "        ]\n" +
-                "    }\n" +
-                "]";
-        List<Customer> customerList = JSONArray.parseArray(jsonStr,Customer.class);
-        遍历customerList最终得到一个字符串，字符串结果如下：
-        保单号：C123411233、领款人：张三，保单号：H324324223、领款人：张三，保单号：A78923323、领款人：赵六七
-        请给出代码，最好用Java lambda表达式实现
+2024-02-26 13:48:39,905 - startup.py[line:650] - INFO: 正在启动服务：
+2024-02-26 13:48:39,905 - startup.py[line:651] - INFO: 如需查看 llm_api 日志，请前往 /mnt/workspace/Langchain-Chatchat/logs
+2024-02-26 13:48:41 | INFO | model_worker | Register to controller
+2024-02-26 13:48:42 | ERROR | stderr | INFO:     Started server process [1714]
+2024-02-26 13:48:42 | ERROR | stderr | INFO:     Waiting for application startup.
+2024-02-26 13:48:42 | ERROR | stderr | INFO:     Application startup complete.
+2024-02-26 13:48:42 | ERROR | stderr | INFO:     Uvicorn running on http://0.0.0.0:20000 (Press CTRL+C to quit)
+2024-02-26 13:48:43.323738: I tensorflow/core/util/port.cc:111] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2024-02-26 13:48:43.354904: E tensorflow/compiler/xla/stream_executor/cuda/cuda_dnn.cc:9342] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+2024-02-26 13:48:43.354931: E tensorflow/compiler/xla/stream_executor/cuda/cuda_fft.cc:609] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+2024-02-26 13:48:43.354956: E tensorflow/compiler/xla/stream_executor/cuda/cuda_blas.cc:1518] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2024-02-26 13:48:43.360258: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+RuntimeError: module compiled against API version 0x10 but this version of numpy is 0xf
+ImportError: numpy.core._multiarray_umath failed to import
+ImportError: numpy.core.umath failed to import
+Process model_worker - chatglm3-6b:
+Traceback (most recent call last):
+  File "/opt/conda/lib/python3.10/site-packages/transformers/utils/import_utils.py", line 1184, in _get_module
+    return importlib.import_module("." + module_name, self.__name__)
+  File "/opt/conda/lib/python3.10/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 1050, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1027, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1006, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 688, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 883, in exec_module
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "/opt/conda/lib/python3.10/site-packages/transformers/trainer_utils.py", line 49, in <module>
+    import tensorflow as tf
+  File "/opt/conda/lib/python3.10/site-packages/tensorflow/__init__.py", line 38, in <module>
+    from tensorflow.python.tools import module_util as _module_util
+  File "/opt/conda/lib/python3.10/site-packages/tensorflow/python/__init__.py", line 42, in <module>
+    from tensorflow.python.saved_model import saved_model
+  File "/opt/conda/lib/python3.10/site-packages/tensorflow/python/saved_model/saved_model.py", line 20, in <module>
+    from tensorflow.python.saved_model import builder
+  File "/opt/conda/lib/python3.10/site-packages/tensorflow/python/saved_model/builder.py", line 23, in <module>
+    from tensorflow.python.saved_model.builder_impl import _SavedModelBuilder
+  File "/opt/conda/lib/python3.10/site-packages/tensorflow/python/saved_model/builder_impl.py", line 26, in <module>
+    from tensorflow.python.framework import dtypes
+  File "/opt/conda/lib/python3.10/site-packages/tensorflow/python/framework/dtypes.py", line 37, in <module>
+    _np_bfloat16 = pywrap_ml_dtypes.bfloat16()
+TypeError: Unable to convert function return value to a Python type! The signature was
+        () -> handle
 
-import java.util.stream.Collectors;
+The above exception was the direct cause of the following exception:
 
-// Assuming jsonStr is your JSON string
-List<Customer> customerList = JSONArray.parseArray(jsonStr, Customer.class);
-
-String result = customerList.stream()
-    .flatMap(customer -> customer.getPolicyList().stream()
-        .map(policy -> String.format("保单号：%s、领款人：%s", policy.getPolicyNum(), customer.getPayeeName())))
-    .collect(Collectors.joining("，"));
-
-System.out.println(result);
-2.============================================================
-给定Java对象如下：
-public class PendingWithdrawInfo {
-    private String productName;
-
-    private String co;
-
-    private String policyNum;
-
-    private List<String> insuredIdList;
-
-    private List<String> insuredNameList;
-
-    private String payeeId;
-
-    private String payeeName;
-
-    private String payeeRole;
-
-    private String customerBirthday;
-
-    private String payeeType;
-
-    private String payeeAmount;
-
-    private String payDate;
-
-    private List<WithdrawInfo> withdrawInfoList;
-
-    private Set<String> cleanIndList;
-}
-
-public class WithdrawInfo {
-    private String payeeType;
-
-    private String payeeAmount;
-
-    private String payDate;
-}
-
-给定测试数据如下：
-"pendingWithdrawInfoList": [
-            {
-                "cleanIndList": [
-                    "S05"
-                ],
-                "co": "0986",
-                "insuredIdList": [
-                    "124303568"
-                ],
-                "insuredNameList": [
-                    "东先已"
-                ],
-                "payDate": "2026-12-10",
-                "payeeAmount": "10.00",
-                "payeeId": "124303568",
-                "payeeName": "东先已",
-                "payeeRole": "P",
-                "payeeType": "MS",
-                "policyNum": "C123411233",
-                "productName": "鸿丰宝两全保险（分红型）"
-            },
-            {
-                "cleanIndList": [
-                    "S05"
-                ],
-                "co": "0986",
-                "insuredIdList": [
-                    "124303568"
-                ],
-                "insuredNameList": [
-                    "东先已"
-                ],
-                "payDate": "2026-12-12",
-                "payeeAmount": "46387.00",
-                "payeeId": "124303568",
-                "payeeName": "东先已",
-                "payeeRole": "P",
-                "payeeType": "TB",
-                "policyNum": "C123411233",
-                "productName": "鸿丰宝两全保险（分红型）"
-            },
-            {
-                "cleanIndList": [
-                    "S03"
-                ],
-                "co": "0986",
-                "insuredIdList": [
-                    "124285468"
-                ],
-                "insuredNameList": [
-                    "高解浪"
-                ],
-                "payDate": "2025-01-02",
-                "payeeAmount": "0.00",
-                "payeeId": "124285468",
-                "payeeName": "高解浪",
-                "payeeRole": "I",
-                "payeeType": "TB",
-                "policyNum": "H202455411",
-                "productName": "智选康逸荣耀（2021）医疗保险"
-            }
-        ]
-请把测试数据按照policyNum和payeeType都相同的数据合并为一条数据，合并时候请注意其中payeeType、payeeAmount、payDate三个字段收集到对象PendingWithdrawInfo里withdrawInfoList字段里，最终得到pendingWithdrawInfoList集合
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-public class Main {
-    public static void main(String[] args) {
-        // 测试数据
-        List<PendingWithdrawInfo> pendingWithdrawInfoList = new ArrayList<>();
-        // 这里添加测试数据，因为是示例，我就不重复添加完整数据了
-
-        // 存储合并后的数据
-        Map<String, PendingWithdrawInfo> map = new HashMap<>();
-        for (PendingWithdrawInfo info : pendingWithdrawInfoList) {
-            // 组合键，确保policyNum和payeeId的唯一性
-            String key = info.getPolicyNum() + "|" + info.getPayeeId();
-            if (!map.containsKey(key)) {
-                info.setWithdrawInfoList(new ArrayList<>()); // 确保有初始化列表
-                info.getWithdrawInfoList().add(new WithdrawInfo(info.getPayeeType(), info.getPayeeAmount(), info.getPayDate()));
-                map.put(key, info);
-            } else {
-                // 已存在，更新withdrawInfoList
-                PendingWithdrawInfo existingInfo = map.get(key);
-                existingInfo.getWithdrawInfoList().add(new WithdrawInfo(info.getPayeeType(), info.getPayeeAmount(), info.getPayDate()));
-            }
-        }
-
-        // 将Map转换回List
-        List<PendingWithdrawInfo> mergedPendingWithdrawInfoList = new ArrayList<>(map.values());
-
-        // 打印结果进行检查
-        for (PendingWithdrawInfo info : mergedPendingWithdrawInfoList) {
-            System.out.println(info); // 根据你的PendingWithdrawInfo类实现toString方法或者自定义打印格式
-        }
-    }
-}
+Traceback (most recent call last):
+  File "/opt/conda/lib/python3.10/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/opt/conda/lib/python3.10/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/mnt/workspace/Langchain-Chatchat/startup.py", line 386, in run_model_worker
+    app = create_model_worker_app(log_level=log_level, **kwargs)
+  File "/mnt/workspace/Langchain-Chatchat/startup.py", line 171, in create_model_worker_app
+    from fastchat.serve.model_worker import app, GptqConfig, AWQConfig, ModelWorker, worker_id
+  File "/opt/conda/lib/python3.10/site-packages/fastchat/serve/model_worker.py", line 14, in <module>
+    from transformers import set_seed
+  File "<frozen importlib._bootstrap>", line 1075, in _handle_fromlist
+  File "/opt/conda/lib/python3.10/site-packages/transformers/utils/import_utils.py", line 1174, in __getattr__
+    module = self._get_module(self._class_to_module[name])
+  File "/opt/conda/lib/python3.10/site-packages/transformers/utils/import_utils.py", line 1186, in _get_module
+    raise RuntimeError(
+RuntimeError: Failed to import transformers.trainer_utils because of the following error (look up to see its traceback):
+Unable to convert function return value to a Python type! The signature was
+        () -> handle
