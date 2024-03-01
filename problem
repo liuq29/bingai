@@ -1,1 +1,26 @@
-https://oss-cn-shanghai-finance-1-pub-internal.aliyuncs.com
+[
+    {
+        "listCustomerInfo": [
+            {
+                "customerId": "7004397",
+                "phoneNum": "13901807791"
+            },
+            {
+                "customerId": "7686767",
+                "phoneNum": ""
+            }
+        ]
+    },
+    {
+        "listCustomerInfo": [
+            {
+                "customerId": "7004397",
+                "phoneNum": "13901807791"
+            },
+            {
+                "customerId": "343242",
+                "phoneNum": ""
+            }
+        ]
+    }
+]
