@@ -1,26 +1,27 @@
-[
-    {
-        "listCustomerInfo": [
-            {
-                "customerId": "7004397",
-                "phoneNum": "13901807791"
-            },
-            {
-                "customerId": "7686767",
-                "phoneNum": ""
-            }
-        ]
-    },
-    {
-        "listCustomerInfo": [
-            {
-                "customerId": "7004397",
-                "phoneNum": "13901807791"
-            },
-            {
-                "customerId": "343242",
-                "phoneNum": ""
-            }
-        ]
+如下这个Java方法的第8行为啥运行时报java.util.ConcurrentModificationException
+public void getAutomaticByPolicy(List<AutomaticNotice> automaticNoticeList, ToDoListResponse toDoListInfo){
+        if (!automaticNoticeList.isEmpty()){
+            log.info("automaticNoticeList="+ JSON.toJSONString(automaticNoticeList));
+            List<AutomaticByPolicy> automaticByPolicyList = new ArrayList<>();
+            automaticNoticeList.forEach(a -> {
+                a.getPolicyList().forEach(p -> {
+                    if (CollUtil.isNotEmpty(automaticByPolicyList)){
+                        automaticByPolicyList.forEach(policy -> {
+                            if (StrUtil.equals(p.getCo(),policy.getCo()) && StrUtil.equals(p.getPolicyNum(),policy.getPolicyNum())){
+                                AutomaticByPolicy.Customer customer = new AutomaticByPolicy.Customer();
+                                customer.setPayeeId(a.getAlphaId());
+                                customer.setPayeeName(a.getCustomerName());
+                                policy.getCustomerSet().add(customer);
+                            }else {
+                                automaticByPolicyList.add(packAutomaticByPolicy(p,a));
+                            }
+                        });
+                    }else {
+                        automaticByPolicyList.add(packAutomaticByPolicy(p,a));
+                    }
+                });
+            });
+            log.info("automaticByPolicyList="+ JSON.toJSONString(automaticByPolicyList));
+            toDoListInfo.setAutomaticByPolicyList(automaticByPolicyList);
+        }
     }
-]
