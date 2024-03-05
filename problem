@@ -1,27 +1,24 @@
-如下这个Java方法的第8行为啥运行时报java.util.ConcurrentModificationException
-public void getAutomaticByPolicy(List<AutomaticNotice> automaticNoticeList, ToDoListResponse toDoListInfo){
-        if (!automaticNoticeList.isEmpty()){
-            log.info("automaticNoticeList="+ JSON.toJSONString(automaticNoticeList));
-            List<AutomaticByPolicy> automaticByPolicyList = new ArrayList<>();
-            automaticNoticeList.forEach(a -> {
-                a.getPolicyList().forEach(p -> {
-                    if (CollUtil.isNotEmpty(automaticByPolicyList)){
-                        automaticByPolicyList.forEach(policy -> {
-                            if (StrUtil.equals(p.getCo(),policy.getCo()) && StrUtil.equals(p.getPolicyNum(),policy.getPolicyNum())){
-                                AutomaticByPolicy.Customer customer = new AutomaticByPolicy.Customer();
-                                customer.setPayeeId(a.getAlphaId());
-                                customer.setPayeeName(a.getCustomerName());
-                                policy.getCustomerSet().add(customer);
-                            }else {
-                                automaticByPolicyList.add(packAutomaticByPolicy(p,a));
-                            }
-                        });
-                    }else {
-                        automaticByPolicyList.add(packAutomaticByPolicy(p,a));
-                    }
-                });
-            });
-            log.info("automaticByPolicyList="+ JSON.toJSONString(automaticByPolicyList));
-            toDoListInfo.setAutomaticByPolicyList(automaticByPolicyList);
+List<AutomaticByPolicy> tempAutomaticByPolicyList = new ArrayList<>(); // 创建临时列表
+automaticNoticeList.forEach(a -> {
+    a.getPolicyList().forEach(p -> {
+        if (!automaticByPolicyList.isEmpty()){
+            boolean isAdded = false; // 添加标志，用于判断是否已添加
+            for (AutomaticByPolicy policy : automaticByPolicyList) {
+                if (StrUtil.equals(p.getCo(),policy.getCo()) && StrUtil.equals(p.getPolicyNum(),policy.getPolicyNum())){
+                    AutomaticByPolicy.Customer customer = new AutomaticByPolicy.Customer();
+                    customer.setPayeeId(a.getAlphaId());
+                    customer.setPayeeName(a.getCustomerName());
+                    policy.getCustomerSet().add(customer);
+                    isAdded = true; // 已处理，不需要再添加
+                    break; // 如果找到匹配的策略，就不需要继续遍历
+                }
+            }
+            if (!isAdded) { // 如果没有添加，则加入到临时列表中
+                tempAutomaticByPolicyList.add(packAutomaticByPolicy(p,a));
+            }
+        } else {
+            tempAutomaticByPolicyList.add(packAutomaticByPolicy(p,a));
         }
-    }
+    });
+});
+automaticByPolicyList.addAll(tempAutomaticByPolicyList); // 遍历结束后，将所有新元素添加到列表中
