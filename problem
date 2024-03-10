@@ -1,38 +1,39 @@
-Internal error. Please refer to https://jb.gg/ide/critical-startup-errors
+if __name__ == "__main__":
+    url = 'http://pic.netbian.com/4kmeinv/'
+    headers = {
+        'User-Agent':'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36'
+    }
+    response = requests.get(url=url,headers=headers)
+    #手动设定响应数据的编码格式
+    # response.encoding = 'utf-8'
+    page_text = response.text
 
-com.intellij.diagnostic.PluginException: Fatal error initializing 'com.alibaba.p3c.idea.component.CommonSettingsApplicationComponent
-            ' [Plugin: com.alibaba.p3c.smartfox]
-    at com.intellij.serviceContainer.ComponentManagerImpl.registerComponents(ComponentManagerImpl.kt:392)
-    at com.intellij.serviceContainer.ComponentManagerImpl.access$registerComponents(ComponentManagerImpl.kt:73)
-    at com.intellij.serviceContainer.ComponentManagerImpl.registerComponents(ComponentManagerImpl.kt:258)
-    at com.intellij.openapi.client.ClientAwareComponentManager.registerComponents(ClientAwareComponentManager.kt:48)
-    at com.intellij.ide.bootstrap.AppPreInitKt$initServiceContainer$2.invokeSuspend(appPreInit.kt:41)
-    at com.intellij.ide.bootstrap.AppPreInitKt$initServiceContainer$2.invoke(appPreInit.kt)
-    at com.intellij.ide.bootstrap.AppPreInitKt$initServiceContainer$2.invoke(appPreInit.kt)
-    at kotlinx.coroutines.intrinsics.UndispatchedKt.startUndispatchedOrReturn(Undispatched.kt:78)
-    at kotlinx.coroutines.BuildersKt__Builders_commonKt.withContext(Builders.common.kt:167)
-    at kotlinx.coroutines.BuildersKt.withContext(Unknown Source)
-    at com.intellij.diagnostic.TracerKt.subtask(tracer.kt:45)
-    at com.intellij.diagnostic.TracerKt.subtask$default(tracer.kt:34)
-    at com.intellij.ide.bootstrap.AppPreInitKt.initServiceContainer(appPreInit.kt:40)
-    at com.intellij.ide.bootstrap.AppPreInitKt$initServiceContainer$1.invokeSuspend(appPreInit.kt)
-    at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
-    at kotlinx.coroutines.UndispatchedCoroutine.afterResume(CoroutineContext.kt:270)
-    at kotlinx.coroutines.AbstractCoroutine.resumeWith(AbstractCoroutine.kt:102)
-    at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:46)
-    at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:106)
-    at kotlinx.coroutines.scheduling.CoroutineScheduler.runSafely(CoroutineScheduler.kt:584)
-    at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.executeTask(CoroutineScheduler.kt:793)
-    at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.runWorker(CoroutineScheduler.kt:697)
-    at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.run(CoroutineScheduler.kt:684)
-Caused by: java.lang.ClassNotFoundException: com.alibaba.p3c.idea.component.CommonSettingsApplicationComponent
-             PluginClassLoader(plugin=PluginDescriptor(name=Alibaba Java Coding Guidelines, id=com.alibaba.p3c.smartfox, descriptorPath=plugin.xml, path=~\AppData\Roaming\JetBrains\IdeaIC2023.2\plugins\Alibaba Java Coding Guidelines, version=2.1.0, package=null, isBundled=false), packagePrefix=null, state=active)
-    at com.intellij.ide.plugins.cl.PluginClassLoader.loadClass(PluginClassLoader.kt:156)
-    at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:525)
-    at com.intellij.serviceContainer.ComponentManagerImpl.registerComponent(ComponentManagerImpl.kt:513)
-    at com.intellij.serviceContainer.ComponentManagerImpl.registerComponents(ComponentManagerImpl.kt:372)
-    ... 22 more
+    #数据解析：src的属性值  alt属性
+    tree = etree.HTML(page_text)
+    li_list = tree.xpath('//div[@class="slist"]/ul/li')
 
------
-Your JRE: 17.0.9+7-b1000.46 amd64 (JetBrains s.r.o.)
-C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2023.2.5\jbr
+
+    #创建一个文件夹
+    if not os.path.exists('./picLibs'):
+        os.mkdir('./picLibs')
+
+    for li in li_list:
+        img_src = 'http://pic.netbian.com'+li.xpath('./a/img/@src')[0]
+        img_name = li.xpath('./a/img/@alt')[0]+'.jpg'
+        #通用处理中文乱码的解决方案
+        img_name = img_name.encode('iso-8859-1').decode('gbk')
+
+        # print(img_name,img_src)
+        #请求图片进行持久化存储
+        img_data = requests.get(url=img_src,headers=headers).content
+        img_path = 'picLibs/'+img_name
+        with open(img_path,'wb') as fp:
+            fp.write(img_data)
+            print(img_name,'下载成功！！！')
+
+运行如上代码报错：
+Traceback (most recent call last):
+  File "D:\workspace\chatIE\ChatIE\tools\back-end\test.py", line 36, in <module>
+    with open(img_path,'wb') as fp:
+         ^^^^^^^^^^^^^^^^^^^
+OSError: [Errno 22] Invalid argument: 'D:\\pic漂亮健身美女赵露思4K壁纸3840*2560.jpg'
