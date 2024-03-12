@@ -1,1 +1,7 @@
-conda install -c conda-forge uvicorn
+# python api.py
+None of PyTorch, TensorFlow >= 2.0, or Flax have been found. Models won't be available and only tokenizers, configuration and file/data utilities can be used.
+Traceback (most recent call last):
+  File "/data/oapes_ai/project/CodeGen2-main/api.py", line 4, in <module>
+    import torch
+ModuleNotFoundError: No module named 'torch'
+(codegen2)
