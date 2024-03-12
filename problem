@@ -1,1 +1,1 @@
-pip install --upgrade tqdm
+conda install -c conda-forge tqdm
