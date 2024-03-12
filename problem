@@ -21,3 +21,7 @@ Tue Mar 12 23:17:24 2024
 |    0   N/A  N/A   2474386      C   ...ft/anaconda/envs/wz_lang/bin/python     1402MiB |
 +---------------------------------------------------------------------------------------+
 (codegen2)
+
+
+python -c "import torch; print(torch.__version__)"
+
