@@ -25,3 +25,7 @@ Tue Mar 12 23:17:24 2024
 
 python -c "import torch; print(torch.__version__)"
 
+>>> import torch
+>>> torch.cuda.is_available()
+True
+
