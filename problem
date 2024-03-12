@@ -40,3 +40,6 @@ WARNING: No ICDs were found. Either,
 - Make your system-wide implementation visible by installing ocl-icd-system conda package.
 (codegen2)
 
+conda install -c conda-forge pocl
+
+
