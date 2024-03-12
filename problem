@@ -1,1 +1,8 @@
-https://github.com/THUDM/ChatGLM-6B/blob/main/api.py
+$ conda create --name myenv --prefix /data/oapes_ai/install_soft/anaconda/envs python=3.8
+usage: conda create [-h] [--clone ENV] (-n ENVIRONMENT | -p PATH) [-c CHANNEL] [--use-local] [--override-channels]
+                    [--repodata-fn REPODATA_FNS] [--experimental {jlap,lock}] [--strict-channel-priority]
+                    [--no-channel-priority] [--no-deps | --only-deps] [--no-pin] [--copy] [-C] [-k] [--offline] [--json] [-v]
+                    [-q] [-d] [-y] [--download-only] [--show-channel-urls] [--file FILE] [--no-default-packages]
+                    [--solver {classic,libmamba} | --experimental-solver {classic,libmamba}] [--dev]
+                    [package_spec ...]
+conda create: error: argument -p/--prefix: not allowed with argument -n/--name
