@@ -1,1 +1,18 @@
-conda install pytorch torchvision torchaudio cpuonly -c pytorch
+# python api.py
+Traceback (most recent call last):
+  File "/data/oapes_ai/project/CodeGen2-main/api.py", line 54, in <module>
+    model = AutoModel.from_pretrained("/data/oapes_ai/model/codegen2-1B", trust_remote_code=True).half().cuda()
+  File "/data/oapes_ai/install_soft/anaconda/envs/codegen2/lib/python3.10/site-packages/transformers/modeling_utils.py", line 2528, in cuda
+    return super().cuda(*args, **kwargs)
+  File "/data/oapes_ai/install_soft/anaconda/envs/codegen2/lib/python3.10/site-packages/torch/nn/modules/module.py", line 911, in cuda
+    return self._apply(lambda t: t.cuda(device))
+  File "/data/oapes_ai/install_soft/anaconda/envs/codegen2/lib/python3.10/site-packages/torch/nn/modules/module.py", line 802, in _apply
+    module._apply(fn)
+  File "/data/oapes_ai/install_soft/anaconda/envs/codegen2/lib/python3.10/site-packages/torch/nn/modules/module.py", line 825, in _apply
+    param_applied = fn(param)
+  File "/data/oapes_ai/install_soft/anaconda/envs/codegen2/lib/python3.10/site-packages/torch/nn/modules/module.py", line 911, in <lambda>
+    return self._apply(lambda t: t.cuda(device))
+  File "/data/oapes_ai/install_soft/anaconda/envs/codegen2/lib/python3.10/site-packages/torch/cuda/__init__.py", line 293, in _lazy_init
+    raise AssertionError("Torch not compiled with CUDA enabled")
+AssertionError: Torch not compiled with CUDA enabled
+(codegen2)
