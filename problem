@@ -41,5 +41,6 @@ WARNING: No ICDs were found. Either,
 (codegen2)
 
 conda install -c conda-forge pocl
+pip uninstall torch torchvision torchaudio
 
 
