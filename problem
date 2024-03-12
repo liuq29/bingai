@@ -33,3 +33,10 @@ conda uninstall pytorch torchvision torchaudio
 
 conda install pytorch==2.1.2 torchvision==0.16.2 torchaudio==2.1.2 pytorch-cuda=12.1 -c pytorch -c nvidia
 
+
+# source activate codegen2
+WARNING: No ICDs were found. Either,
+- Install a conda package providing a OpenCL implementation (pocl, oclgrind, intel-compute-runtime, beignet) or
+- Make your system-wide implementation visible by installing ocl-icd-system conda package.
+(codegen2)
+
