@@ -52,3 +52,5 @@ pip uninstall torch torchvision torchaudio
 >>> torch.cuda.is_available()
 False
 
+raise AssertionError("Torch not compiled with CUDA enabled")
+AssertionError: Torch not compiled with CUDA enabled
