@@ -71,3 +71,16 @@ Please check your internet connection. This can happen if your antivirus softwar
 3. Move the file to this location: /data/oapes_ai/install_soft/anaconda/envs/deepseek_coder/lib/python3.10/site-                                                                                packages/gradio
 ^CKeyboard interruption in main thread... closing server.
 (deepseek_coder)
+
+
+# python app.py
+Loading checkpoint shards: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 2/2 [00:00<00:00,  3.89it/s]
+Special tokens have been added in the vocabulary, make sure the associated word embeddings are fine-tuned or trained.
+Running on local URL:  http://127.0.0.1:7860
+Traceback (most recent call last):
+  File "/data/oapes_ai/project/DeepSeek-Coder-main/demo/app.py", line 129, in <module>
+    demo.queue().launch(share=False)
+  File "/data/oapes_ai/install_soft/anaconda/envs/deepseek_coder/lib/python3.10/site-packages/gradio/blocks.py", line 2115, in launch
+    raise ValueError(
+ValueError: When localhost is not accessible, a shareable link must be created. Please set share=True or check your proxy settings to allow access to localhost.
+(deepseek_coder)
