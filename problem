@@ -54,3 +54,20 @@ False
 
 raise AssertionError("Torch not compiled with CUDA enabled")
 AssertionError: Torch not compiled with CUDA enabled
+
+
+
+# python app.py
+Loading checkpoint shards: 100%|██████████████████████████████████████████████████| 2/2 [00:03<00:00,  1.96s/it]
+Special tokens have been added in the vocabulary, make sure the associated word embeddings are fine-tuned or tra                                                                                ined.
+Running on local URL:  http://127.0.0.1:7860
+
+Could not create share link. Missing file: /data/oapes_ai/install_soft/anaconda/envs/deepseek_coder/lib/python3.                                                                                10/site-packages/gradio/frpc_linux_amd64_v0.2.
+
+Please check your internet connection. This can happen if your antivirus software blocks the download of this fi                                                                                le. You can install manually by following these steps:
+
+1. Download this file: https://cdn-media.huggingface.co/frpc-gradio-0.2/frpc_linux_amd64
+2. Rename the downloaded file to: frpc_linux_amd64_v0.2
+3. Move the file to this location: /data/oapes_ai/install_soft/anaconda/envs/deepseek_coder/lib/python3.10/site-                                                                                packages/gradio
+^CKeyboard interruption in main thread... closing server.
+(deepseek_coder)
