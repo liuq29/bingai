@@ -1,84 +1,13 @@
-# pip3 install --proxy http://sha1.sme.zscalertwo.net:10938 -i https://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com "fschat[model_worker,webui]"
-Looking in indexes: https://mirrors.aliyun.com/pypi/simple
-Collecting wavedrom (from markdown2[all]->fschat[model_worker,webui])
-  Using cached https://mirrors.aliyun.com/pypi/packages/be/71/6739e3abac630540aaeaaece4584c39f88b5f8658ce6ca517efec455e3de/wavedrom-2.0.3.post3.tar.gz (137 kB)
-  Preparing metadata (setup.py) ... error
-  error: subprocess-exited-with-error
+直接安装setuptools_scm：
+尝试直接安装setuptools_scm，以确保它在您的环境中可用：
+pip3 install setuptools_scm
 
-  × python setup.py egg_info did not run successfully.
-  │ exit code: 1
-  ╰─> [63 lines of output]
-      /data/oapes_ai/install_soft/anaconda/envs/deepseek_coder/lib/python3.10/site-packages/setuptools/dist.py:472: SetuptoolsDeprecationWarning: Invalid dash-separated options
-      !!
+使用PEP 517构建：
+如果问题仍然存在，您可以尝试使用PEP 517构建标准来安装包。这可以通过添加--use-pep517标志来实现：
+pip3 install --use-pep517 "fschat[model_worker,webui]"
 
-              ********************************************************************************
-              Usage of dash-separated 'index-url' will not be supported in future
-              versions. Please use the underscore name 'index_url' instead.
-
-              By 2024-Sep-26, you need to update your project and remove deprecated calls
-              or your builds will no longer be supported.
-
-              See https://setuptools.pypa.io/en/latest/userguide/declarative_config.html for details.
-              ********************************************************************************
-
-      !!
-        opt = self.warn_dash_deprecation(opt, section)
-      /data/oapes_ai/install_soft/anaconda/envs/deepseek_coder/lib/python3.10/site-packages/setuptools/__init__.py:80: _DeprecatedInstaller: setuptools.installer and fetch_build_eggs are deprecated.
-      !!
-
-              ********************************************************************************
-              Requirements should be satisfied by a PEP 517 installer.
-              If you are using pip, you can try `pip install --use-pep517`.
-              ********************************************************************************
-
-      !!
-        dist.fetch_build_eggs(dist.setup_requires)
-      WARNING: The repository located at mirrors.cloud.aliyuncs.com is not a trusted or secure host and is being ignored. If this repository is available via HTTPS we recommend you use HTTPS instead, otherwise you may silence this warning and allow it anyway with '--trusted-host mirrors.cloud.aliyuncs.com'.
-      ERROR: Could not find a version that satisfies the requirement setuptools_scm (from versions: none)
-      ERROR: No matching distribution found for setuptools_scm
-      Traceback (most recent call last):
-        File "/data/oapes_ai/install_soft/anaconda/envs/deepseek_coder/lib/python3.10/site-packages/setuptools/installer.py", line 101, in _fetch_build_egg_no_warn
-          subprocess.check_call(cmd)
-        File "/data/oapes_ai/install_soft/anaconda/envs/deepseek_coder/lib/python3.10/subprocess.py", line 369, in check_call
-          raise CalledProcessError(retcode, cmd)
-      subprocess.CalledProcessError: Command '['/data/oapes_ai/install_soft/anaconda/envs/deepseek_coder/bin/python3.10', '-m', 'pip', '--disable-pip-version-check', 'wheel', '--no-deps', '-w', '/tmp/tmpvqyqvnt8', '--quiet', '--index-url', 'http://mirrors.cloud.aliyuncs.com/pypi/simple/', 'setuptools_scm']' returned non-zero exit status 1.
-
-      The above exception was the direct cause of the following exception:
-
-      Traceback (most recent call last):
-        File "<string>", line 2, in <module>
-        File "<pip-setuptools-caller>", line 34, in <module>
-        File "/tmp/pip-install-34_5efte/wavedrom_939b3193f2944ee4a1965b85741413cc/setup.py", line 28, in <module>
-          setup(
-        File "/data/oapes_ai/install_soft/anaconda/envs/deepseek_coder/lib/python3.10/site-packages/setuptools/__init__.py", line 102, in setup
-          _install_setup_requires(attrs)
-        File "/data/oapes_ai/install_soft/anaconda/envs/deepseek_coder/lib/python3.10/site-packages/setuptools/__init__.py", line 75, in _install_setup_requires
-          _fetch_build_eggs(dist)
-        File "/data/oapes_ai/install_soft/anaconda/envs/deepseek_coder/lib/python3.10/site-packages/setuptools/__init__.py", line 80, in _fetch_build_eggs
-          dist.fetch_build_eggs(dist.setup_requires)
-        File "/data/oapes_ai/install_soft/anaconda/envs/deepseek_coder/lib/python3.10/site-packages/setuptools/dist.py", line 636, in fetch_build_eggs
-          return _fetch_build_eggs(self, requires)
-        File "/data/oapes_ai/install_soft/anaconda/envs/deepseek_coder/lib/python3.10/site-packages/setuptools/installer.py", line 38, in _fetch_build_eggs
-          resolved_dists = pkg_resources.working_set.resolve(
-        File "/data/oapes_ai/install_soft/anaconda/envs/deepseek_coder/lib/python3.10/site-packages/pkg_resources/__init__.py", line 813, in resolve
-          dist = self._resolve_dist(
-        File "/data/oapes_ai/install_soft/anaconda/envs/deepseek_coder/lib/python3.10/site-packages/pkg_resources/__init__.py", line 849, in _resolve_dist
-          dist = best[req.key] = env.best_match(
-        File "/data/oapes_ai/install_soft/anaconda/envs/deepseek_coder/lib/python3.10/site-packages/pkg_resources/__init__.py", line 1119, in best_match
-          return self.obtain(req, installer)
-        File "/data/oapes_ai/install_soft/anaconda/envs/deepseek_coder/lib/python3.10/site-packages/pkg_resources/__init__.py", line 1130, in obtain
-          return installer(requirement) if installer else None
-        File "/data/oapes_ai/install_soft/anaconda/envs/deepseek_coder/lib/python3.10/site-packages/setuptools/installer.py", line 103, in _fetch_build_egg_no_warn
-          raise DistutilsError(str(e)) from e
-      distutils.errors.DistutilsError: Command '['/data/oapes_ai/install_soft/anaconda/envs/deepseek_coder/bin/python3.10', '-m', 'pip', '--disable-pip-version-check', 'wheel', '--no-deps', '-w', '/tmp/tmpvqyqvnt8', '--quiet', '--index-url', 'http://mirrors.cloud.aliyuncs.com/pypi/simple/', 'setuptools_scm']' returned non-zero exit status 1.
-      [end of output]
-
-  note: This error originates from a subprocess, and is likely not a problem with pip.
-error: metadata-generation-failed
-
-× Encountered error while generating package metadata.
-╰─> See above for output.
-
-note: This is an issue with the package mentioned above, not pip.
-hint: See above for details.
-(deepseek_coder)
+检查代理设置：
+确保您的代理设置正确无误，并且代理服务器允许您访问所需的资源。
+使用可信的源：
+如果您收到关于不受信任或不安全主机的警告，您可以尝试添加--trusted-host参数来解决：
+pip3 install --trusted-host mirrors.aliyuncs.com "fschat[model_worker,webui]"
