@@ -84,3 +84,7 @@ Traceback (most recent call last):
     raise ValueError(
 ValueError: When localhost is not accessible, a shareable link must be created. Please set share=True or check your proxy settings to allow access to localhost.
 (deepseek_coder)
+
+~/.bashrc或~/.bash_profile
+export no_proxy="localhost,127.0.0.1,::1"
+source ~/.bashrc
