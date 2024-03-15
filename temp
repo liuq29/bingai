@@ -1,13 +1,89 @@
-直接安装setuptools_scm：
-尝试直接安装setuptools_scm，以确保它在您的环境中可用：
 pip3 install setuptools_scm
-
-使用PEP 517构建：
-如果问题仍然存在，您可以尝试使用PEP 517构建标准来安装包。这可以通过添加--use-pep517标志来实现：
-pip3 install --use-pep517 "fschat[model_worker,webui]"
-
-检查代理设置：
-确保您的代理设置正确无误，并且代理服务器允许您访问所需的资源。
-使用可信的源：
-如果您收到关于不受信任或不安全主机的警告，您可以尝试添加--trusted-host参数来解决：
 pip3 install --trusted-host mirrors.aliyuncs.com "fschat[model_worker,webui]"
+# 首先启动 controller ：
+nohup python3 -m fastchat.serve.controller --host 0.0.0.0 --port 21001 > controller.log 2>&1 &
+# 启动 openapi的 兼容服务 地址 8000
+nohup python3 -m fastchat.serve.openai_api_server --controller-address http://127.0.0.1:21001 --host 0.0.0.0 --port 8000 > api_server.log 2>&1 &
+# 启动 web ui
+nohup python -m fastchat.serve.gradio_web_server --model-list-mode reload --controller-url http://127.0.0.1:21001 --host 0.0.0.0 --port 6006 > web_server.log 2>&1 &
+## 启动 worker 
+nohup python3 -m fastchat.serve.model_worker --model-names deepseek-coder-6.7b --model-path /data/oapes_ai/model/deepseek-coder-6.7b-instruct --controller-address http://127.0.0.1:21001 --worker-address http://127.0.0.1:8080 --host 0.0.0.0 --port 8080 > model_worker.log 2>&1 &
+然后我使用postman掉用fastapi接口stream流式掉用：http://10.199.6.133:8000/v1/chat/completions
+请求报文：{
+    "model": "deepseek-coder-6.7b",
+    "stream": true,
+    "messages": [
+        {
+            "role": "user",
+            "content": "用Java写一个hello world"
+        }
+    ]
+}
+模型日志报错如下：
+2024-03-15 10:57:25 | ERROR | stderr | ERROR:    Exception in ASGI application
+2024-03-15 10:57:25 | ERROR | stderr | Traceback (most recent call last):
+2024-03-15 10:57:25 | ERROR | stderr |   File "/data/oapes_ai/install_soft/anaconda/envs/deepseek_coder/lib/pyth                                                                                         on3.10/site-packages/starlette/responses.py", line 264, in __call__
+2024-03-15 10:57:25 | ERROR | stderr |     await wrap(partial(self.listen_for_disconnect, receive))
+2024-03-15 10:57:25 | ERROR | stderr |   File "/data/oapes_ai/install_soft/anaconda/envs/deepseek_coder/lib/pyth                                                                                         on3.10/site-packages/starlette/responses.py", line 260, in wrap
+2024-03-15 10:57:25 | ERROR | stderr |     await func()
+2024-03-15 10:57:25 | ERROR | stderr |   File "/data/oapes_ai/install_soft/anaconda/envs/deepseek_coder/lib/pyth                                                                                         on3.10/site-packages/starlette/responses.py", line 237, in listen_for_disconnect
+2024-03-15 10:57:25 | ERROR | stderr |     message = await receive()
+2024-03-15 10:57:25 | ERROR | stderr |   File "/data/oapes_ai/install_soft/anaconda/envs/deepseek_coder/lib/pyth                                                                                         on3.10/site-packages/uvicorn/protocols/http/h11_impl.py", line 538, in receive
+2024-03-15 10:57:25 | ERROR | stderr |     await self.message_event.wait()
+2024-03-15 10:57:25 | ERROR | stderr |   File "/data/oapes_ai/install_soft/anaconda/envs/deepseek_coder/lib/pyth                                                                                         on3.10/asyncio/locks.py", line 214, in wait
+2024-03-15 10:57:25 | ERROR | stderr |     await fut
+2024-03-15 10:57:25 | ERROR | stderr | asyncio.exceptions.CancelledError: Cancelled by cancel scope 7f3c403a3a00
+2024-03-15 10:57:25 | ERROR | stderr |
+2024-03-15 10:57:25 | ERROR | stderr | During handling of the above exception, another exception occurred:
+2024-03-15 10:57:25 | ERROR | stderr |
+2024-03-15 10:57:25 | ERROR | stderr |   + Exception Group Traceback (most recent call last):
+2024-03-15 10:57:25 | ERROR | stderr |   |   File "/data/oapes_ai/install_soft/anaconda/envs/deepseek_coder/lib/                                                                                         python3.10/site-packages/uvicorn/protocols/http/h11_impl.py", line 408, in run_asgi
+2024-03-15 10:57:25 | ERROR | stderr |   |     result = await app(  # type: ignore[func-returns-value]
+2024-03-15 10:57:25 | ERROR | stderr |   |   File "/data/oapes_ai/install_soft/anaconda/envs/deepseek_coder/lib/                                                                                         python3.10/site-packages/uvicorn/middleware/proxy_headers.py", line 69, in __call__
+2024-03-15 10:57:25 | ERROR | stderr |   |     return await self.app(scope, receive, send)
+2024-03-15 10:57:25 | ERROR | stderr |   |   File "/data/oapes_ai/install_soft/anaconda/envs/deepseek_coder/lib/                                                                                         python3.10/site-packages/fastapi/applications.py", line 1054, in __call__
+2024-03-15 10:57:25 | ERROR | stderr |   |     await super().__call__(scope, receive, send)
+2024-03-15 10:57:25 | ERROR | stderr |   |   File "/data/oapes_ai/install_soft/anaconda/envs/deepseek_coder/lib/                                                                                         python3.10/site-packages/starlette/applications.py", line 123, in __call__
+2024-03-15 10:57:25 | ERROR | stderr |   |     await self.middleware_stack(scope, receive, send)
+2024-03-15 10:57:25 | ERROR | stderr |   |   File "/data/oapes_ai/install_soft/anaconda/envs/deepseek_coder/lib/                                                                                         python3.10/site-packages/starlette/middleware/errors.py", line 186, in __call__
+2024-03-15 10:57:25 | ERROR | stderr |   |     raise exc
+2024-03-15 10:57:25 | ERROR | stderr |   |   File "/data/oapes_ai/install_soft/anaconda/envs/deepseek_coder/lib/                                                                                         python3.10/site-packages/starlette/middleware/errors.py", line 164, in __call__
+2024-03-15 10:57:25 | ERROR | stderr |   |     await self.app(scope, receive, _send)
+2024-03-15 10:57:25 | ERROR | stderr |   |   File "/data/oapes_ai/install_soft/anaconda/envs/deepseek_coder/lib/                                                                                         python3.10/site-packages/starlette/middleware/cors.py", line 83, in __call__
+2024-03-15 10:57:25 | ERROR | stderr |   |     await self.app(scope, receive, send)
+2024-03-15 10:57:25 | ERROR | stderr |   |   File "/data/oapes_ai/install_soft/anaconda/envs/deepseek_coder/lib/                                                                                         python3.10/site-packages/starlette/middleware/exceptions.py", line 62, in __call__
+2024-03-15 10:57:25 | ERROR | stderr |   |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive                                                                                         , send)
+2024-03-15 10:57:25 | ERROR | stderr |   |   File "/data/oapes_ai/install_soft/anaconda/envs/deepseek_coder/lib/                                                                                         python3.10/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+2024-03-15 10:57:25 | ERROR | stderr |   |     raise exc
+2024-03-15 10:57:25 | ERROR | stderr |   |   File "/data/oapes_ai/install_soft/anaconda/envs/deepseek_coder/lib/                                                                                         python3.10/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+2024-03-15 10:57:25 | ERROR | stderr |   |     await app(scope, receive, sender)
+2024-03-15 10:57:25 | ERROR | stderr |   |   File "/data/oapes_ai/install_soft/anaconda/envs/deepseek_coder/lib/                                                                                         python3.10/site-packages/starlette/routing.py", line 758, in __call__
+2024-03-15 10:57:25 | ERROR | stderr |   |     await self.middleware_stack(scope, receive, send)
+2024-03-15 10:57:25 | ERROR | stderr |   |   File "/data/oapes_ai/install_soft/anaconda/envs/deepseek_coder/lib/                                                                                         python3.10/site-packages/starlette/routing.py", line 778, in app
+2024-03-15 10:57:25 | ERROR | stderr |   |     await route.handle(scope, receive, send)
+2024-03-15 10:57:25 | ERROR | stderr |   |   File "/data/oapes_ai/install_soft/anaconda/envs/deepseek_coder/lib/                                                                                         python3.10/site-packages/starlette/routing.py", line 299, in handle
+2024-03-15 10:57:25 | ERROR | stderr |   |     await self.app(scope, receive, send)
+2024-03-15 10:57:25 | ERROR | stderr |   |   File "/data/oapes_ai/install_soft/anaconda/envs/deepseek_coder/lib/                                                                                         python3.10/site-packages/starlette/routing.py", line 79, in app
+2024-03-15 10:57:25 | ERROR | stderr |   |     await wrap_app_handling_exceptions(app, request)(scope, receive,                                                                                          send)
+2024-03-15 10:57:25 | ERROR | stderr |   |   File "/data/oapes_ai/install_soft/anaconda/envs/deepseek_coder/lib/                                                                                         python3.10/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+2024-03-15 10:57:25 | ERROR | stderr |   |     raise exc
+2024-03-15 10:57:25 | ERROR | stderr |   |   File "/data/oapes_ai/install_soft/anaconda/envs/deepseek_coder/lib/                                                                                         python3.10/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+2024-03-15 10:57:25 | ERROR | stderr |   |     await app(scope, receive, sender)
+2024-03-15 10:57:25 | ERROR | stderr |   |   File "/data/oapes_ai/install_soft/anaconda/envs/deepseek_coder/lib/                                                                                         python3.10/site-packages/starlette/routing.py", line 77, in app
+2024-03-15 10:57:25 | ERROR | stderr |   |     await response(scope, receive, send)
+2024-03-15 10:57:25 | ERROR | stderr |   |   File "/data/oapes_ai/install_soft/anaconda/envs/deepseek_coder/lib/                                                                                         python3.10/site-packages/starlette/responses.py", line 257, in __call__
+2024-03-15 10:57:25 | ERROR | stderr |   |     async with anyio.create_task_group() as task_group:
+2024-03-15 10:57:25 | ERROR | stderr |   |   File "/data/oapes_ai/install_soft/anaconda/envs/deepseek_coder/lib/                                                                                         python3.10/site-packages/anyio/_backends/_asyncio.py", line 678, in __aexit__
+2024-03-15 10:57:25 | ERROR | stderr |   |     raise BaseExceptionGroup(
+2024-03-15 10:57:25 | ERROR | stderr |   | exceptiongroup.ExceptionGroup: unhandled errors in a TaskGroup (1 sub                                                                                         -exception)
+2024-03-15 10:57:25 | ERROR | stderr |   +-+---------------- 1 ----------------
+2024-03-15 10:57:25 | ERROR | stderr |     | Traceback (most recent call last):
+2024-03-15 10:57:25 | ERROR | stderr |     |   File "/data/oapes_ai/install_soft/anaconda/envs/deepseek_coder/li                                                                                         b/python3.10/site-packages/starlette/responses.py", line 260, in wrap
+2024-03-15 10:57:25 | ERROR | stderr |     |     await func()
+2024-03-15 10:57:25 | ERROR | stderr |     |   File "/data/oapes_ai/install_soft/anaconda/envs/deepseek_coder/li                                                                                         b/python3.10/site-packages/starlette/responses.py", line 249, in stream_response
+2024-03-15 10:57:25 | ERROR | stderr |     |     async for chunk in self.body_iterator:
+2024-03-15 10:57:25 | ERROR | stderr |     |   File "/data/oapes_ai/install_soft/anaconda/envs/deepseek_coder/li                                                                                         b/python3.10/site-packages/fastchat/serve/openai_api_server.py", line 506, in chat_completion_stream_generator
+2024-03-15 10:57:25 | ERROR | stderr |     |     yield f"data: {chunk.json(exclude_unset=True, ensure_ascii=Fals                                                                                         e)}\n\n"
+2024-03-15 10:57:25 | ERROR | stderr |     |   File "/data/oapes_ai/install_soft/anaconda/envs/deepseek_coder/li                                                                                         b/python3.10/site-packages/pydantic/main.py", line 1056, in json
+2024-03-15 10:57:25 | ERROR | stderr |     |     raise TypeError('`dumps_kwargs` keyword arguments are no longer                                                                                          supported.')
+2024-03-15 10:57:25 | ERROR | stderr |     | TypeError: `dumps_kwargs` keyword arguments are no longer supported 
