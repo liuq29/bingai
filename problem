@@ -1,3 +1,17 @@
-#nohup python3 -m fastchat.serve.controller --host 0.0.0.0 --port 21001 > controller.log 2>&1 &
-/bin/python3: Error while finding module specification for 'fastchat.serve.controller' (ModuleNotFoundError: No module named 'fastchat')
-(deepseek_coder)
+#!/bin/bash
+
+# 获取当前脚本所在目录的绝对路径
+script_dir=$(dirname "$(readlink -f "$0")")
+# 构建日志目录的路径
+log_dir="$script_dir/log"
+
+# 检查日志目录是否存在，如果不存在则创建
+if [ ! -d "$log_dir" ]; then
+    mkdir -p "$log_dir"
+fi
+
+# 构建日志文件的路径
+log_file="$log_dir/controller.log"
+
+# 启动命令，并将日志输出到日志文件中
+nohup python3 -m fastchat.serve.controller --host 0.0.0.0 --port 21001 > "$log_file" 2>&1 &
