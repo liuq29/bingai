@@ -1,6 +1,1 @@
-# conda list pydantic
-# packages in environment at /anaconda/envs/deepseek_coder:
-#
-# Name                    Version                   Build  Channel
-pydantic                  2.6.4                    pypi_0    pypi
-pydantic-core             2.16.3                   pypi_0    pypi
+fastapi:0.110.0 fschat:0.2.36 pydantic:2.6.4 pydantic-core:2.16.3  
