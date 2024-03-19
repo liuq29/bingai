@@ -1,3 +1,5 @@
 ># echo $PATH
 /bin:/bin:/data/oapes_ai/install_soft/anaconda/envs/myenv/bin:/data/oapes_ai/install_soft/anaconda/condabin:/sbin:/bin:/usr/sbin:/usr/bin:/data/oapes_ai/install_soft/anaconda/envs/myenv/bin:/root/bin:/root/bin
 (myenv)
+
+export PATH=/data/oapes_ai/install_soft/anaconda/envs/myenv/bin:/bin:/data/oapes_ai/install_soft/anaconda/condabin:/sbin:/usr/sbin:/usr/bin:/root/bin
