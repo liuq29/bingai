@@ -1,56 +1,28 @@
-有Java对象PendingWithdrawInfo.java和WithdrawInfo.java
-public class PendingWithdrawInfo {
-    private String productName;
-    private String co;
-    private String policyNum;
+List<PendingWithdrawInfo> processedList = pendingWithdrawInfoList.stream()
+                .map(pwi -> {
+                    Map<String, List<WithdrawInfo>> groupedByType = pwi.getWithdrawInfoList().stream()
+                            .collect(Collectors.groupingBy(WithdrawInfo::getPayeeType));
 
-    private List<WithdrawInfo> withdrawInfoList;
+                    List<WithdrawInfo> combinedList = groupedByType.entrySet().stream()
+                            .map(entry -> {
+                                String payeeType = entry.getKey();
+                                double totalAmount = entry.getValue().stream()
+                                        .mapToDouble(wi -> Double.parseDouble(wi.getPayeeAmount()))
+                                        .sum();
+                                String formattedAmount = String.format("%.2f", totalAmount);
+                                WithdrawInfo combinedInfo = new WithdrawInfo();
+                                combinedInfo.setPayeeType(payeeType);
+                                combinedInfo.setPayeeAmount(formattedAmount);
+                                combinedInfo.setPayeeId(entry.getValue().get(0).getPayeeId()); // Assuming payeeId is the same for all
+                                combinedInfo.setPayeeName(entry.getValue().get(0).getPayeeName()); // Assuming payeeName is the same for all
+                                return combinedInfo;
+                            })
+                            .collect(Collectors.toList());
 
-}
+                    pwi.setWithdrawInfoList(combinedList);
+                    return pwi;
+                })
+                .collect(Collectors.toList());
 
-public class WithdrawInfo {
-    private String payeeType;
-    private String payeeAmount;
-    private String payeeId;
-    private String payeeName;
-}
-测试数据如下：
-String jsonStr = "[
-    {
-        "productName": "prodsfd",
-        "co": "5245",
-        "policyNum": "A3443234",
-        "withdrawInfoList": [
-            {
-                "payeeType": "TB",
-                "payeeAmount": "100.00",
-                "payeeId": "8588728",
-                "payeeName": "李辉"
-            },
-            {
-                "payeeType": "TB",
-                "payeeAmount": "150.00",
-                "payeeId": "8588728",
-                "payeeName": "李辉"
-            }
-        ]
-    }
-]"
-List<PendingWithdrawInfo> pendingWithdrawInfoList = JSONArray.pareArray(jsonStr,PendingWithdrawInfo.class);
-请处理pendingWithdrawInfoList 最终处理的结果如下：要求withdrawInfoList集合里的WithdrawInfo对象payeeType值相等的合并为一条数据，同时payeeAmount金额累加并且保留两位小数，请使用Java lambda表达式完成
-处理后的数据如下：
-[
-    {
-        "productName": "prodsfd",
-        "co": "5245",
-        "policyNum": "A3443234",
-        "withdrawInfoList": [
-            {
-                "payeeType": "TB",
-                "payeeAmount": "250.00",
-                "payeeId": "8588728",
-                "payeeName": "李辉"
-            }
-        ]
-    }
-]
+        String processedJson = mapper.writeValueAsString(processedList);
+        System.out.println(processedJson);
