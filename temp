@@ -1,5 +1,22 @@
-fastapi:0.110.0 fschat:0.2.36 pydantic:2.6.4 pydantic-core:2.16.3  
-
-
-
-conda install "fschat=model_worker,webui=1.2.3" "fastapi=0.10.0"
+如下Json字符串数据：
+[
+    {
+        "payeeAmount": "23.01",
+        "payeeId": "5454544",
+        "payeeName": "张三",
+        "payeeType": "TB"
+    },
+    {
+        "payeeAmount": "26500.85",
+        "payeeId": "5454544",
+        "payeeName": "张三",
+        "payeeType": "TB"
+    },
+    {
+        "payeeAmount": "1000.85",
+        "payeeId": "5454544",
+        "payeeName": "张三",
+        "payeeType": "MS"
+    }
+]
+合并payeeType相同的数据并且payeeAmount的金额相加，请给出Java代码，最后使用Lambda 表达式
