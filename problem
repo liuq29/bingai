@@ -1,57 +1,56 @@
-import java.math.BigDecimal;
-import java.util.List;
-import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collectors;
+有Java对象PendingWithdrawInfo.java和WithdrawInfo.java
+public class PendingWithdrawInfo {
+    private String productName;
+    private String co;
+    private String policyNum;
 
-public class MergeWithdrawInfo {
+    private List<WithdrawInfo> withdrawInfoList;
 
-    public static void main(String[] args) {
-        List<PendingWithdrawInfo> pendingWithdrawInfoList = null; // 假设已初始化并填充了测试数据
-
-        List<PendingWithdrawInfo> mergedList = mergeWithdrawInfo(pendingWithdrawInfoList);
-        // 输出合并后的结果
-        mergedList.forEach(System.out::println);
-    }
-
-    public static List<PendingWithdrawInfo> mergeWithdrawInfo(List<PendingWithdrawInfo> pendingWithdrawInfoList) {
-        if (pendingWithdrawInfoList == null || pendingWithdrawInfoList.isEmpty()) {
-            return List.of();
-        }
-
-        return pendingWithdrawInfoList.stream()
-                .collect(Collectors.groupingBy(PendingWithdrawInfo::getProductName))
-                .values()
-                .stream()
-                .map(MergeWithdrawInfo::mergePendingWithdrawInfos)
-                .collect(Collectors.toList());
-    }
-
-    private static PendingWithdrawInfo mergePendingWithdrawInfos(List<PendingWithdrawInfo> list) {
-        PendingWithdrawInfo merged = new PendingWithdrawInfo();
-        merged.setProductName(list.get(0).getProductName());
-        merged.setCo(list.get(0).getCo());
-        merged.setPolicyNum(list.get(0).getPolicyNum());
-
-        Map<String, List<WithdrawInfo>> groupedWithdrawInfo = list.stream()
-                .flatMap(pwi -> pwi.getWithdrawInfoList().stream())
-                .collect(Collectors.groupingBy(WithdrawInfo::getPayeeType));
-
-        List<WithdrawInfo> mergedWithdrawInfo = groupedWithdrawInfo.entrySet().stream()
-                .map(e -> {
-                    BigDecimal totalAmount = e.getValue().stream()
-                            .map(wi -> new BigDecimal(wi.getPayeeAmount()))
-                            .reduce(BigDecimal.ZERO, BigDecimal::add);
-                    WithdrawInfo mergedWithdrawInfoItem = new WithdrawInfo();
-                    mergedWithdrawInfoItem.setPayeeType(e.getKey());
-                    mergedWithdrawInfoItem.setPayeeAmount(totalAmount.setScale(2, BigDecimal.ROUND_DOWN).toString());
-                    mergedWithdrawInfoItem.setPayeeId(e.getValue().get(0).getPayeeId());
-                    mergedWithdrawInfoItem.setPayeeName(e.getValue().get(0).getPayeeName());
-                    return mergedWithdrawInfoItem;
-                })
-                .collect(Collectors.toList());
-
-        merged.setWithdrawInfoList(mergedWithdrawInfo);
-        return merged;
-    }
 }
+
+public class WithdrawInfo {
+    private String payeeType;
+    private String payeeAmount;
+    private String payeeId;
+    private String payeeName;
+}
+测试数据如下：
+String jsonStr = "[
+    {
+        "productName": "prodsfd",
+        "co": "5245",
+        "policyNum": "A3443234",
+        "withdrawInfoList": [
+            {
+                "payeeType": "TB",
+                "payeeAmount": "100.00",
+                "payeeId": "8588728",
+                "payeeName": "李辉"
+            },
+            {
+                "payeeType": "TB",
+                "payeeAmount": "150.00",
+                "payeeId": "8588728",
+                "payeeName": "李辉"
+            }
+        ]
+    }
+]"
+List<PendingWithdrawInfo> pendingWithdrawInfoList = JSONArray.pareArray(jsonStr,PendingWithdrawInfo.class);
+请处理pendingWithdrawInfoList 最终处理的结果如下：要求withdrawInfoList集合里的WithdrawInfo对象payeeType值相等的合并为一条数据，同时payeeAmount金额累加并且保留两位小数，请使用Java lambda表达式完成
+处理后的数据如下：
+[
+    {
+        "productName": "prodsfd",
+        "co": "5245",
+        "policyNum": "A3443234",
+        "withdrawInfoList": [
+            {
+                "payeeType": "TB",
+                "payeeAmount": "250.00",
+                "payeeId": "8588728",
+                "payeeName": "李辉"
+            }
+        ]
+    }
+]
