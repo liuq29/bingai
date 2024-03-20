@@ -1,5 +1,19 @@
-># echo $PATH
-/bin:/bin:/data/oapes_ai/install_soft/anaconda/envs/myenv/bin:/data/oapes_ai/install_soft/anaconda/condabin:/sbin:/bin:/usr/sbin:/usr/bin:/data/oapes_ai/install_soft/anaconda/envs/myenv/bin:/root/bin:/root/bin
-(myenv)
-
-export PATH=/data/oapes_ai/install_soft/anaconda/envs/myenv/bin:/bin:/data/oapes_ai/install_soft/anaconda/condabin:/sbin:/usr/sbin:/usr/bin:/root/bin
+2024-03-20 13:47:25.532 Uncaught app exception
+Traceback (most recent call last):
+  File "/data/oapes_ai/install_soft/anaconda/envs/wz_lang/lib/python3.8/site-packages/streamlit/runtime/scriptrunner/script_runner.py", line 535, in _run_script
+    exec(code, module.__dict__)
+  File "/data/oapes_ai/project/Langchain-Chatchat-master/webui.py", line 64, in <module>
+    pages[selected_page]["func"](api=api, is_lite=is_lite)
+  File "/data/oapes_ai/project/Langchain-Chatchat-master/webui_pages/knowledge_base/knowledge_base.py", line 221, in knowledge_base_page
+    doc_grid = AgGrid(
+  File "/data/oapes_ai/install_soft/anaconda/envs/wz_lang/lib/python3.8/site-packages/st_aggrid/__init__.py", line 356, in AgGrid
+    row_data = __parse_row_data(data)
+  File "/data/oapes_ai/install_soft/anaconda/envs/wz_lang/lib/python3.8/site-packages/st_aggrid/__init__.py", line 54, in __parse_row_data
+    row_data = data_parameter.to_json(orient='records', date_format='iso')
+  File "/data/oapes_ai/install_soft/anaconda/envs/wz_lang/lib/python3.8/site-packages/pandas/core/generic.py", line 2532, in to_json
+    return json.to_json(
+  File "/data/oapes_ai/install_soft/anaconda/envs/wz_lang/lib/python3.8/site-packages/pandas/io/json/_json.py", line 181, in to_json
+    s = writer(
+  File "/data/oapes_ai/install_soft/anaconda/envs/wz_lang/lib/python3.8/site-packages/pandas/io/json/_json.py", line 244, in write
+    return dumps(
+UnicodeEncodeError: 'utf-8' codec can't encode character '\udca6' in position 4: surrogates not allowed
