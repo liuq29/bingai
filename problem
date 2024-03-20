@@ -1,19 +1,57 @@
-2024-03-20 13:47:25.532 Uncaught app exception
-Traceback (most recent call last):
-  File "/data/oapes_ai/install_soft/anaconda/envs/wz_lang/lib/python3.8/site-packages/streamlit/runtime/scriptrunner/script_runner.py", line 535, in _run_script
-    exec(code, module.__dict__)
-  File "/data/oapes_ai/project/Langchain-Chatchat-master/webui.py", line 64, in <module>
-    pages[selected_page]["func"](api=api, is_lite=is_lite)
-  File "/data/oapes_ai/project/Langchain-Chatchat-master/webui_pages/knowledge_base/knowledge_base.py", line 221, in knowledge_base_page
-    doc_grid = AgGrid(
-  File "/data/oapes_ai/install_soft/anaconda/envs/wz_lang/lib/python3.8/site-packages/st_aggrid/__init__.py", line 356, in AgGrid
-    row_data = __parse_row_data(data)
-  File "/data/oapes_ai/install_soft/anaconda/envs/wz_lang/lib/python3.8/site-packages/st_aggrid/__init__.py", line 54, in __parse_row_data
-    row_data = data_parameter.to_json(orient='records', date_format='iso')
-  File "/data/oapes_ai/install_soft/anaconda/envs/wz_lang/lib/python3.8/site-packages/pandas/core/generic.py", line 2532, in to_json
-    return json.to_json(
-  File "/data/oapes_ai/install_soft/anaconda/envs/wz_lang/lib/python3.8/site-packages/pandas/io/json/_json.py", line 181, in to_json
-    s = writer(
-  File "/data/oapes_ai/install_soft/anaconda/envs/wz_lang/lib/python3.8/site-packages/pandas/io/json/_json.py", line 244, in write
-    return dumps(
-UnicodeEncodeError: 'utf-8' codec can't encode character '\udca6' in position 4: surrogates not allowed
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
+public class MergeWithdrawInfo {
+
+    public static void main(String[] args) {
+        List<PendingWithdrawInfo> pendingWithdrawInfoList = null; // 假设已初始化并填充了测试数据
+
+        List<PendingWithdrawInfo> mergedList = mergeWithdrawInfo(pendingWithdrawInfoList);
+        // 输出合并后的结果
+        mergedList.forEach(System.out::println);
+    }
+
+    public static List<PendingWithdrawInfo> mergeWithdrawInfo(List<PendingWithdrawInfo> pendingWithdrawInfoList) {
+        if (pendingWithdrawInfoList == null || pendingWithdrawInfoList.isEmpty()) {
+            return List.of();
+        }
+
+        return pendingWithdrawInfoList.stream()
+                .collect(Collectors.groupingBy(PendingWithdrawInfo::getProductName))
+                .values()
+                .stream()
+                .map(MergeWithdrawInfo::mergePendingWithdrawInfos)
+                .collect(Collectors.toList());
+    }
+
+    private static PendingWithdrawInfo mergePendingWithdrawInfos(List<PendingWithdrawInfo> list) {
+        PendingWithdrawInfo merged = new PendingWithdrawInfo();
+        merged.setProductName(list.get(0).getProductName());
+        merged.setCo(list.get(0).getCo());
+        merged.setPolicyNum(list.get(0).getPolicyNum());
+
+        Map<String, List<WithdrawInfo>> groupedWithdrawInfo = list.stream()
+                .flatMap(pwi -> pwi.getWithdrawInfoList().stream())
+                .collect(Collectors.groupingBy(WithdrawInfo::getPayeeType));
+
+        List<WithdrawInfo> mergedWithdrawInfo = groupedWithdrawInfo.entrySet().stream()
+                .map(e -> {
+                    BigDecimal totalAmount = e.getValue().stream()
+                            .map(wi -> new BigDecimal(wi.getPayeeAmount()))
+                            .reduce(BigDecimal.ZERO, BigDecimal::add);
+                    WithdrawInfo mergedWithdrawInfoItem = new WithdrawInfo();
+                    mergedWithdrawInfoItem.setPayeeType(e.getKey());
+                    mergedWithdrawInfoItem.setPayeeAmount(totalAmount.setScale(2, BigDecimal.ROUND_DOWN).toString());
+                    mergedWithdrawInfoItem.setPayeeId(e.getValue().get(0).getPayeeId());
+                    mergedWithdrawInfoItem.setPayeeName(e.getValue().get(0).getPayeeName());
+                    return mergedWithdrawInfoItem;
+                })
+                .collect(Collectors.toList());
+
+        merged.setWithdrawInfoList(mergedWithdrawInfo);
+        return merged;
+    }
+}
