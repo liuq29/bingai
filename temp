@@ -1,1 +1,1 @@
-Uvicorn running on http://127.0.0.1:8765
+message: [demo][demoController request:{"po":"2541"，"isLife":"0"，"kangInd":"0"，"customerList":[{"birthday":"1994-03-09"，"idNum":"44454665625"，"idType":"03"，"id":"124290882"，"name":"zhangzsna"，"roles":["P"]}]}]
