@@ -1,1 +1,41 @@
 
+有如下3个Java 对象Policy、CusInfo、RoleInfo
+public class Policy{
+	private String posNum;
+	private List<CusInfo> cusInfos;
+}
+
+public class CusInfo{
+	private String cusId;
+	private List<RoleInfo> cusRoles;
+
+}
+
+public class RoleInfo{
+	private String num;
+	private String role;
+}
+测试数据如下：
+{
+    "posNum": "45625456",
+    "cusInfos": [
+        {
+            "cusId": "225156",
+            "cusRoles": [
+                {
+                    "num": "01",
+                    "role": "P"
+                },
+                {
+                    "num": "01",
+                    "role": "I"
+                },
+                {
+                    "num": "02",
+                    "role": "I"
+                }
+            ]
+        }
+    ]
+}
+请根据测试数据，判断如果cusRoles集合里role的值同时包含"P"和"I"返回true，否则返回false，请给出Java代码，最好使用lambda表达式完成
