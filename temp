@@ -1,41 +1,104 @@
+你可以使用 Java 8 的 lambda 表达式和流操作来实现这个功能。下面是一个示例代码：
 
-有如下3个Java 对象Policy、CusInfo、RoleInfo
-public class Policy{
-	private String posNum;
-	private List<CusInfo> cusInfos;
+```java
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class Main {
+    public static void main(String[] args) {
+        Policy policy = new Policy();
+        policy.setPosNum("45625456");
+
+        CusInfo cusInfo = new CusInfo();
+        cusInfo.setCusId("225156");
+
+        RoleInfo roleInfo1 = new RoleInfo();
+        roleInfo1.setNum("01");
+        roleInfo1.setRole("P");
+
+        RoleInfo roleInfo2 = new RoleInfo();
+        roleInfo2.setNum("01");
+        roleInfo2.setRole("I");
+
+        RoleInfo roleInfo3 = new RoleInfo();
+        roleInfo3.setNum("02");
+        roleInfo3.setRole("I");
+
+        cusInfo.setCusRoles(List.of(roleInfo1, roleInfo2, roleInfo3));
+        policy.setCusInfos(List.of(cusInfo));
+
+        boolean result = policy.getCusInfos().stream()
+                .flatMap(cus -> cus.getCusRoles().stream())
+                .map(RoleInfo::getRole)
+                .collect(Collectors.toSet())
+                .containsAll(List.of("P", "I"));
+
+        System.out.println(result);
+    }
 }
 
-public class CusInfo{
-	private String cusId;
-	private List<RoleInfo> cusRoles;
+class Policy {
+    private String posNum;
+    private List<CusInfo> cusInfos;
 
+    public String getPosNum() {
+        return posNum;
+    }
+
+    public void setPosNum(String posNum) {
+        this.posNum = posNum;
+    }
+
+    public List<CusInfo> getCusInfos() {
+        return cusInfos;
+    }
+
+    public void setCusInfos(List<CusInfo> cusInfos) {
+        this.cusInfos = cusInfos;
+    }
 }
 
-public class RoleInfo{
-	private String num;
-	private String role;
+class CusInfo {
+    private String cusId;
+    private List<RoleInfo> cusRoles;
+
+    public String getCusId() {
+        return cusId;
+    }
+
+    public void setCusId(String cusId) {
+        this.cusId = cusId;
+    }
+
+    public List<RoleInfo> getCusRoles() {
+        return cusRoles;
+    }
+
+    public void setCusRoles(List<RoleInfo> cusRoles) {
+        this.cusRoles = cusRoles;
+    }
 }
-测试数据如下：
-{
-    "posNum": "45625456",
-    "cusInfos": [
-        {
-            "cusId": "225156",
-            "cusRoles": [
-                {
-                    "num": "01",
-                    "role": "P"
-                },
-                {
-                    "num": "01",
-                    "role": "I"
-                },
-                {
-                    "num": "02",
-                    "role": "I"
-                }
-            ]
-        }
-    ]
+
+class RoleInfo {
+    private String num;
+    private String role;
+
+    public String getNum() {
+        return num;
+    }
+
+    public void setNum(String num) {
+        this.num = num;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
 }
-请根据测试数据，判断如果cusRoles集合里role的值同时包含"P"和"I"返回true，否则返回false，请给出Java代码，最好使用lambda表达式完成
+```
+
+这段代码会输出 `true`，因为测试数据中的 `cusRoles` 集合中同时包含了 "P" 和 "I" 这两个角色。
