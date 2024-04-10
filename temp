@@ -1,53 +1,5 @@
-有Java对象PendingWithdrawInfo.java和WithdrawInfo.java
-public class PendingWithdrawInfo {
-    private String productName;
-    private String co;
-    private String policyNum;
-	private List<WithdrawInfo> withdrawInfoList;
-}
-public class WithdrawInfo {
-    private String payeeType;
-    private String payeeAmount;
-    private String payeeId;
-    private String payeeName;
-}
-测试数据如下：
-String jsonStr = "[
-    {
-        "productName": "prodsfd",
-        "co": "5245",
-        "policyNum": "A3443234",
-        "withdrawInfoList": [
-            {
-                "payeeType": "TB",
-                "payeeAmount": "100.00",
-                "payeeId": "8588728",
-                "payeeName": "李辉"
-            },
-            {
-                "payeeType": "TB",
-                "payeeAmount": "150.00",
-                "payeeId": "8588728",
-                "payeeName": "李辉"
-            }
-        ]
-    }
-]"
-List<PendingWithdrawInfo> pendingWithdrawInfoList = JSONArray.pareArray(jsonStr,PendingWithdrawInfo.class);
-请处理pendingWithdrawInfoList 最终处理的结果如下：要求withdrawInfoList集合里的WithdrawInfo对象payeeType值相等的合并为一条数据，同时payeeAmount金额累加并且保留两位小数不要四舍五入，请使用Java lambda表达式完成
-处理后的数据如下：
-[
-    {
-        "productName": "prodsfd",
-        "co": "5245",
-        "policyNum": "A3443234",
-        "withdrawInfoList": [
-            {
-                "payeeType": "TB",
-                "payeeAmount": "250.00",
-                "payeeId": "8588728",
-                "payeeName": "李辉"
-            }
-        ]
-    }
-]
+LOCAL_DB_TYPE=mysql
+LOCAL_DB_USER= {your username}
+LOCAL_DB_PASSWORD={your_password}
+LOCAL_DB_HOST=127.0.0.1
+LOCAL_DB_PORT=3306
