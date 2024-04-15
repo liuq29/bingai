@@ -1,5 +1,2 @@
-LOCAL_DB_TYPE=mysql
-LOCAL_DB_USER= {your username}
-LOCAL_DB_PASSWORD={your_password}
-LOCAL_DB_HOST=127.0.0.1
-LOCAL_DB_PORT=3306
+页面初始化时查询保单列表api ，/eservicePos/paymentOffset/policyList ，保单卡片展示使用AiaCard，"产品名称"-保单主险中文名称，"保单号"-保单编号,"被保人"-被保人姓名（脱敏展示），"约定内容"-已约定提前支付/未约定提前支付。 
+保单卡片点击按钮，用store缓存当前保单对象，跳转到“/detail”页面。
