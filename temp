@@ -1,10 +1,1 @@
-生存证明：
-	A P
-	B I
-	挂B保单，BG024 生存证明
-	
-	A P/I  挂单 BG002 生存证明
-	
-	
-	
-	投保人/最新生效/生存证明
+export PYTHONPATH=$PYTHONPATH:/path/to/your/project/root/directory
