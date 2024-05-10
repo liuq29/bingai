@@ -16,4 +16,4 @@ https://dashscope.aliyuncs.com/api/v1/services/aigc/text-generation/generation
     }
 }
 
-Bearer sk-70bed63cb5e74c86bb2a4bec4485536a
+Authorization Bearer sk-70bed63cb5e74c86bb2a4bec4485536a
