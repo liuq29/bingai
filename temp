@@ -1,1 +1,19 @@
-export PYTHONPATH=$PYTHONPATH:/path/to/your/project/root/directory
+https://dashscope.aliyuncs.com/api/v1/services/aigc/text-generation/generation
+
+{
+    "model": "qwen-turbo",
+    "input": {
+        "messages": [
+            {
+                "role": "system",
+                "content": "You are a helpful assistant."
+            },
+            {
+                "role": "user",
+                "content": "你好"
+            }
+        ]
+    }
+}
+
+Bearer sk-70bed63cb5e74c86bb2a4bec4485536a
